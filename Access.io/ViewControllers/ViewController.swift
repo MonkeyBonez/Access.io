@@ -31,7 +31,7 @@ class MainMenuViewController: UIViewController{
         let vc = storyboard.instantiateViewController(withIdentifier: "LoginScreen") as UIViewController
         
         navigationController?.pushViewController(vc, animated: true)
-       //dismiss(animated: true, completion: nil)
+       
            
         
     }
