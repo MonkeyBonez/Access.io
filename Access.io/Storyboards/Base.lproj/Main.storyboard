@@ -87,9 +87,11 @@
                                 <rect key="frame" x="96" y="615" width="222" height="94"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <state key="normal" title="Log in"/>
+                                <state key="normal" title="Log in">
+                                    <color key="titleColor" red="0.50779604007203882" green="0.67055958748034794" blue="0.9647552371" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
-                                    <action selector="loginButtonPressed:" destination="zCv-wd-40U" eventType="touchUpInside" id="Vya-Fh-9Tq"/>
+                                    <action selector="loginButtonPressed:" destination="zCv-wd-40U" eventType="touchUpInside" id="kcW-95-1er"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -13,6 +13,14 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    func enableLoginButton(){
+        
+    }
+    func disableLoginButton(){
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("ViewDidLoad at Login Screen")
@@ -21,9 +29,21 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        var username = usernameTextField.text
-        var password = passwordTextField.text
-        
+        var username:String = usernameTextField.text ?? ""
+        var password:String = passwordTextField.text ?? ""
+        if(password == "Password"){
+            password = ""
+        }
+        if(username == "Username"){
+            username = ""
+        }
+        if ((username ?? "").isEmpty || (password ?? "").isEmpty){
+            print("empty")
+        }
+        else{
+            print(username + " " + password)
+            print("non-empty")
+        }
         /*print(usernameTextField.text ?? "")
         print(passwordTextField.text ?? "")*/
     }
