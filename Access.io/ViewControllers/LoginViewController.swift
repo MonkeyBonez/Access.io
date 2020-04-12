@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     var connectionToServer:server = server()
 
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var IncorrectLoginText: UILabel!
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -59,8 +60,10 @@ class LoginViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        IncorrectLoginText.isHidden = true
         disableLoginButton()
         //connectToSocket()
+        
        
         
        
@@ -93,7 +96,10 @@ class LoginViewController: UIViewController {
         let data = try! encoder.encode(sentUser)
         let userJSON = (String(data: data, encoding: .utf8)!)*/
         connectionToServer.sendUser(message: sentUser)
-       
+       //recieve connection and process based upon user id recieved
+        //display incorrect if needed
+        //continue to map if needed
+        
         
     }
     

@@ -99,15 +99,6 @@
                                     <action selector="usernameTextChanged:" destination="zCv-wd-40U" eventType="editingChanged" id="Vip-hv-gJC"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRL-pp-RQI">
-                                <rect key="frame" x="96" y="675" width="222" height="94"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <state key="normal" title="Sign Up"/>
-                                <connections>
-                                    <action selector="loginButtonPressed:" destination="zCv-wd-40U" eventType="touchUpInside" id="b0E-z7-qHQ"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vnh-SD-Nwk">
                                 <rect key="frame" x="71" y="466" width="273" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -117,13 +108,38 @@
                                     <action selector="passwordTextChanged:" destination="zCv-wd-40U" eventType="editingChanged" id="VdW-He-Hpu"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRL-pp-RQI">
+                                <rect key="frame" x="96" y="675" width="222" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="zCv-wd-40U" eventType="touchUpInside" id="b0E-z7-qHQ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email already used" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYL-ok-ZpC">
+                                <rect key="frame" x="0.0" y="555" width="414" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.73775276830000003" green="0.12827111350000001" blue="0.04517003118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username already used" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzl-W8-EVd">
+                                <rect key="frame" x="0.0" y="607" width="414" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.73775276830000003" green="0.12827111350000001" blue="0.04517003118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="d6J-cU-QCq"/>
                     </view>
                     <connections>
+                        <outlet property="emailInUse" destination="SYL-ok-ZpC" id="cFc-we-69c"/>
                         <outlet property="emailTextBox" destination="Hk8-Ze-V22" id="LpV-eG-55a"/>
                         <outlet property="passwordTextBox" destination="vnh-SD-Nwk" id="by9-1Q-3X6"/>
+                        <outlet property="usernameInUse" destination="Rzl-W8-EVd" id="Bmd-8a-Gy4"/>
                         <outlet property="usernameTextBox" destination="Mx3-yx-ajO" id="6mD-D3-8ux"/>
                     </connections>
                 </viewController>
@@ -164,6 +180,13 @@
                                     <action selector="loginButtonPressed:" destination="zCv-wd-40U" eventType="touchUpInside" id="kcW-95-1er"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Incorrect Username or Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vB-2S-RdM">
+                                <rect key="frame" x="20" y="177" width="374" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.73775276830000003" green="0.12827111350000001" blue="0.04517003118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YcI-Vg-bYu">
                                 <rect key="frame" x="71" y="394" width="273" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -178,6 +201,7 @@
                         <viewLayoutGuide key="safeArea" id="sQn-Vj-e15"/>
                     </view>
                     <connections>
+                        <outlet property="IncorrectLoginText" destination="8vB-2S-RdM" id="NeG-E5-VIR"/>
                         <outlet property="loginButton" destination="zhS-rM-Kqr" id="lng-ux-RS3"/>
                         <outlet property="passwordTextField" destination="YcI-Vg-bYu" id="w1k-3f-57G"/>
                         <outlet property="usernameTextField" destination="20K-6c-6NS" id="tfA-ec-Rmm"/>
