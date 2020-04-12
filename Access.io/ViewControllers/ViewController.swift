@@ -21,6 +21,7 @@ class MainMenuViewController: UIViewController{
         super.viewDidLoad()
         var connectionToServer = server()
         connectionToServer.connectToSocket()
+        connectionToServer.sendString(messageString: "Helloworld")
        // myView.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -36,6 +37,13 @@ class MainMenuViewController: UIViewController{
        
            
         
+    }
+    @IBAction func signupButtonClicked(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+         let vc = storyboard.instantiateViewController(withIdentifier: "SignupScreen") as! SignUpViewController
+         vc.connectionToServer = connectionToServer
+         navigationController?.pushViewController(vc, animated: true)
     }
 }
 

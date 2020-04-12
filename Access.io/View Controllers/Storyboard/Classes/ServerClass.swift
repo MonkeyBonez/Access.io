@@ -36,4 +36,15 @@ class server{
           print(error)
         }
     }
+    
+    func sendString(messageString:String){
+        let message = URLSessionWebSocketTask.Message.string(messageString)
+
+         socketConnection?.send(message) { error in
+           if let error = error {
+             // handle the error
+             print(error)
+           }
+         }
+    }
 }

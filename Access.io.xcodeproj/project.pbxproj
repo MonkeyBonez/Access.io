@@ -19,6 +19,7 @@
 		3624A37F24439500005B0E62 /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3624A37E24439500005B0E62 /* UserClass.swift */; };
 		362542152443B53000D507D1 /* ServerClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362542142443B53000D507D1 /* ServerClass.swift */; };
 		362542172443B90F00D507D1 /* AnyEncodableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362542162443B90F00D507D1 /* AnyEncodableStruct.swift */; };
+		362542192443C42F00D507D1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362542182443C42F00D507D1 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		3624A37E24439500005B0E62 /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
 		362542142443B53000D507D1 /* ServerClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerClass.swift; sourceTree = "<group>"; };
 		362542162443B90F00D507D1 /* AnyEncodableStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyEncodableStruct.swift; sourceTree = "<group>"; };
+		362542182443C42F00D507D1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 			children = (
 				3624A34D2442A66A005B0E62 /* ViewController.swift */,
 				3624A3792442ACC1005B0E62 /* LoginViewController.swift */,
+				362542182443C42F00D507D1 /* SignUpViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			files = (
 				362542172443B90F00D507D1 /* AnyEncodableStruct.swift in Sources */,
 				3624A37F24439500005B0E62 /* UserClass.swift in Sources */,
+				362542192443C42F00D507D1 /* SignUpViewController.swift in Sources */,
 				3624A37A2442ACC1005B0E62 /* LoginViewController.swift in Sources */,
 				3624A34E2442A66A005B0E62 /* ViewController.swift in Sources */,
 				362542152443B53000D507D1 /* ServerClass.swift in Sources */,

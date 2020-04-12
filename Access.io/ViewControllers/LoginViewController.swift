@@ -19,7 +19,7 @@ class LoginViewController: UIViewController {
    
     var usernameChanged: Bool = false
     var passwordChanged: Bool = false
-   
+    var attemptedOnce: Bool = false
     func enableLoginButton(){
         loginButton.isEnabled = true
         loginButton.isOpaque = false
@@ -38,8 +38,10 @@ class LoginViewController: UIViewController {
             usernameChanged = false
             disableLoginButton()
         }
-        else if(passwordChanged == true){
-            enableLoginButton()
+        else if(passwordChanged == true || attemptedOnce == true){
+           if(!(passwordTextField.text ?? "").isEmpty && !(usernameTextField.text ?? "").isEmpty){
+                enableLoginButton()
+            }
         }
     }
     
@@ -49,8 +51,10 @@ class LoginViewController: UIViewController {
             passwordChanged = false
             disableLoginButton()
         }
-        else if(usernameChanged == true){
-            enableLoginButton()
+        else if(usernameChanged == true || attemptedOnce == true){
+            if(!(passwordTextField.text ?? "").isEmpty && !(usernameTextField.text ?? "").isEmpty){
+                enableLoginButton()
+            }
         }
     }
     override func viewDidLoad() {
@@ -77,7 +81,9 @@ class LoginViewController: UIViewController {
         else{
             print(username + " " + password)
             print("non-empty")
+            
         }
+        attemptedOnce = true
         usernameChanged = false
         passwordChanged = false
         disableLoginButton()
