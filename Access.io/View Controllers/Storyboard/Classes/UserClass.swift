@@ -7,7 +7,7 @@
 //
 import UIKit
 import Foundation
-class user{
+class user : Codable{
     var username:String
     var password:String
     var id:Int
