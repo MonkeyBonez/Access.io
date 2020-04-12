@@ -9,6 +9,8 @@
 import UIKit
 import Foundation
 class LoginViewController: UIViewController {
+    
+    var connectionToServer:server = server()
 
     @IBOutlet weak var loginButton: UIButton!
     
@@ -27,12 +29,9 @@ class LoginViewController: UIViewController {
         loginButton.isOpaque = true
     }
     
-   /* @IBAction func usernameEditingBegin(_ sender: Any) {
-        if((usernameTextField.text ?? "").isEmpty){
-            usernameChanged = false
-            disableLoginButton()
-        }
-    }*/
+    
+
+
     @IBAction func usernameTextChanged(_ sender: Any) {
         usernameChanged = true
         if((usernameTextField.text ?? "").isEmpty){
@@ -56,11 +55,11 @@ class LoginViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("ViewDidLoad at Login Screen")
         disableLoginButton()
+        //connectToSocket()
        
         
-        // Do any additional setup after loading the view.
+       
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
@@ -83,11 +82,11 @@ class LoginViewController: UIViewController {
         passwordChanged = false
         disableLoginButton()
         var sentUser = user(username: username,password: password)
-        let encoder = JSONEncoder()
+       /* let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         let data = try! encoder.encode(sentUser)
-        let userJSON = (String(data: data, encoding: .utf8)!)
-        
+        let userJSON = (String(data: data, encoding: .utf8)!)*/
+        connectionToServer.sendUser(message: sentUser)
        
         
     }

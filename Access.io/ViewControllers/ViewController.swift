@@ -13,12 +13,14 @@ class MainMenuViewController: UIViewController{
     
    
     var myView: MainMenuViewController!
-    
+    var connectionToServer:server = server()
     
     @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var connectionToServer = server()
+        connectionToServer.connectToSocket()
        // myView.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -28,8 +30,8 @@ class MainMenuViewController: UIViewController{
         
      let storyboard = UIStoryboard(name: "Main", bundle: nil)
        
-        let vc = storyboard.instantiateViewController(withIdentifier: "LoginScreen") as UIViewController
-        
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
+        vc.connectionToServer = connectionToServer
         navigationController?.pushViewController(vc, animated: true)
        
            
