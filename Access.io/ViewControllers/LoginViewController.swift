@@ -99,7 +99,9 @@ class LoginViewController: UIViewController {
        //recieve connection and process based upon user id recieved
         //display incorrect if needed
         //continue to map if needed
-        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
+        vc.connectionToServer = connectionToServer
+        navigationController?.pushViewController(vc, animated: true)
         
     }
     

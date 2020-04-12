@@ -147,6 +147,30 @@
             </objects>
             <point key="canvasLocation" x="159.42028985507247" y="900"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="pdn-mU-Z9E">
+            <objects>
+                <viewController storyboardIdentifier="MapScreen" id="DQL-Cm-6Ly" customClass="MapViewController" customModule="Access_io" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xjg-48-qTc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hts-ed-iNN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="473"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="k5i-hq-yFg"/>
+                    </view>
+                    <connections>
+                        <outlet property="map" destination="Hts-ed-iNN" id="NOB-Ap-il5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xMa-T2-hsP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1420.289855072464" y="890.625"/>
+        </scene>
         <!--LoginScreen-->
         <scene sceneID="0P6-AM-nIx">
             <objects>

@@ -20,6 +20,7 @@
 		362542152443B53000D507D1 /* ServerClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362542142443B53000D507D1 /* ServerClass.swift */; };
 		362542172443B90F00D507D1 /* AnyEncodableStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362542162443B90F00D507D1 /* AnyEncodableStruct.swift */; };
 		362542192443C42F00D507D1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362542182443C42F00D507D1 /* SignUpViewController.swift */; };
+		3625421B2443DAC900D507D1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625421A2443DAC900D507D1 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		362542142443B53000D507D1 /* ServerClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerClass.swift; sourceTree = "<group>"; };
 		362542162443B90F00D507D1 /* AnyEncodableStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyEncodableStruct.swift; sourceTree = "<group>"; };
 		362542182443C42F00D507D1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		3625421A2443DAC900D507D1 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +113,7 @@
 			children = (
 				3624A37D24439418005B0E62 /* ViewControllers */,
 				3624A37C244393EE005B0E62 /* Storyboards */,
-				3624A37B244393CB005B0E62 /* Classes */,
+				3624A37B244393CB005B0E62 /* Models */,
 				3624A3492442A66A005B0E62 /* AppDelegate.swift */,
 				3624A34B2442A66A005B0E62 /* SceneDelegate.swift */,
 				3624A3522442A66D005B0E62 /* Assets.xcassets */,
@@ -138,15 +140,15 @@
 			path = Access.ioUITests;
 			sourceTree = "<group>";
 		};
-		3624A37B244393CB005B0E62 /* Classes */ = {
+		3624A37B244393CB005B0E62 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				3624A37E24439500005B0E62 /* UserClass.swift */,
 				362542142443B53000D507D1 /* ServerClass.swift */,
 				362542162443B90F00D507D1 /* AnyEncodableStruct.swift */,
 			);
-			name = Classes;
-			path = "View Controllers/Storyboard/Classes";
+			name = Models;
+			path = "View Controllers/Storyboard/Models";
 			sourceTree = "<group>";
 		};
 		3624A37C244393EE005B0E62 /* Storyboards */ = {
@@ -164,6 +166,7 @@
 				3624A34D2442A66A005B0E62 /* ViewController.swift */,
 				3624A3792442ACC1005B0E62 /* LoginViewController.swift */,
 				362542182443C42F00D507D1 /* SignUpViewController.swift */,
+				3625421A2443DAC900D507D1 /* MapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				3624A37F24439500005B0E62 /* UserClass.swift in Sources */,
 				362542192443C42F00D507D1 /* SignUpViewController.swift in Sources */,
 				3624A37A2442ACC1005B0E62 /* LoginViewController.swift in Sources */,
+				3625421B2443DAC900D507D1 /* MapViewController.swift in Sources */,
 				3624A34E2442A66A005B0E62 /* ViewController.swift in Sources */,
 				362542152443B53000D507D1 /* ServerClass.swift in Sources */,
 				3624A34A2442A66A005B0E62 /* AppDelegate.swift in Sources */,
