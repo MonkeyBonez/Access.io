@@ -7,20 +7,13 @@
 //
 
 import UIKit
-protocol MyDelegate: class {
-     func onButtonTapped()
-}
 
-class MainMenuViewController: UIViewController, MyDelegate {
+
+class MainMenuViewController: UIViewController{
     
-      weak var delegate: MyDelegate?
+   
     var myView: MainMenuViewController!
-    func onButtonTapped() {
-        let nextViewController = LoginViewController()
-               navigationController?.pushViewController(nextViewController,
-                    animated: false)
-               
-    }
+    
     
     @IBOutlet weak var loginButton: UIButton!
     
@@ -34,18 +27,12 @@ class MainMenuViewController: UIViewController, MyDelegate {
         print("Login clicked")
         
      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
        
-         navigationController?.pushViewController(vc,
-         animated: true)
-        // self.delegate?.onButtonTapped()
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoginScreen") as UIViewController
         
-        
-        /*let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
-        self.navigationController?.pushViewController(newViewController, animated: false)*/
-            
+        navigationController?.pushViewController(vc, animated: true)
+       dismiss(animated: true, completion: nil)
+           
         
     }
 }
