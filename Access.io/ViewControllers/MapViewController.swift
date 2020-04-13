@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import MapKit
+import CoreLocation
 class MapViewController: UIViewController {
     @IBOutlet weak var map: MKMapView!
     var connectionToServer:server = server()
@@ -16,6 +17,8 @@ class MapViewController: UIViewController {
     //or can just pass in id
     override func viewDidLoad() {
     super.viewDidLoad()
+        
+        //CLLocationManager.requestWhenInUseAuthorization(map)
         map.showsUserLocation = true;
     }
 }
