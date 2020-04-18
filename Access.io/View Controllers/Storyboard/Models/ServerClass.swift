@@ -47,4 +47,6 @@ class server{
            }
          }
     }
+    
+    //getRating?
 }
