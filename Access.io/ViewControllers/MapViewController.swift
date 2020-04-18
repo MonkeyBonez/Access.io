@@ -32,7 +32,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         fileprivate var locationManager: CLLocationManager!
         fileprivate var isCurrentLocation: Bool = false
         
-        // MARK: - Activity Indicator
+        // MARK: - eActivity Indicator
         
         fileprivate var activityIndicator: UIActivityIndicatorView!
         
