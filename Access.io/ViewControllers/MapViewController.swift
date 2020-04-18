@@ -10,10 +10,25 @@ import UIKit
 import Foundation
 import MapKit
 import CoreLocation
-class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate{
+
+class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate{
+
+    
+
+    
     @IBOutlet weak var map: MKMapView!
     var connectionToServer:server = server()
     var currUser:user = user(username: "", password: "")
+
+    @IBOutlet weak var addReview: UIButton!
+    @IBOutlet var reviewTable: UITableView! {
+        didSet {
+            reviewTable.dataSource = self
+        }
+    }
+
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
     //or can just pass in id
     /*override func viewDidLoad() {
     super.viewDidLoad()
@@ -53,6 +68,10 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             activityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
             activityIndicator.hidesWhenStopped = true
             self.view.addSubview(activityIndicator)
+            
+            reviewTable.dataSource = self
+            reviewTable.delegate = self
+            reviewTable.reloadData()
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -89,10 +108,23 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         }
         
         // MARK: - UISearchBarDelegate
-        
+    var loc = location(name: "")
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             searchBar.resignFirstResponder()
             dismiss(animated: true, completion: nil)
+            // Call web server to get rating
+            loc = location(name: searchBar.text!)
+            locationLabel.text! += " " + loc.name;
+            // Fill it with data
+            loc.ratingIDs = [5, 5, 3, 2]
+            var average = 0.0
+            for i in loc.ratingIDs {
+                average += Double(i)
+            }
+            average /= Double(loc.ratingIDs.count)
+            let averageRating:String = String(format:"%1.1f", average)
+            
+            ratingLabel.text! += " " + averageRating;
             
             if self.map.annotations.count != 0 {
                 annotation = self.map.annotations[0]
@@ -111,7 +143,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 }
                 
                 let pointAnnotation = MKPointAnnotation()
-                pointAnnotation.title = searchBar.text
+                let temp = searchBar.text! + "\n" + "Rating: " + averageRating
+                pointAnnotation.title = temp
                 pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
                 
                 let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: nil)
@@ -147,7 +180,42 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             map.addAnnotation(pointAnnotation)
         }
 
+    // MARK: - Add a review
+    
+    @IBAction func addButtonPressed(_ sender: Any) {
+        print("adding review")
+        loc.addRating(name: loc.name)
+        reviewTable.reloadData()
     }
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return loc.ratings.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
+
+        let r = loc.ratings[indexPath.row]
+        let text = r.locationName // Maybe this should be title instead?
+        
+        cell.textLabel?.text = text //3.
+        
+        return cell //4.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear")
+        DispatchQueue.main.async { self.reviewTable.reloadData() }
+        
+    }
+}
 
 
 

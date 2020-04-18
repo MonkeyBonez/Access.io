@@ -27,6 +27,7 @@ class Rating{
         
     }
     
+   
     func sendRating(){
         //sends rating and location to backend when user creates rating
     }
