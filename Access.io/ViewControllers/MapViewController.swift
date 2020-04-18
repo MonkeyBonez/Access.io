@@ -109,13 +109,16 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         
         // MARK: - UISearchBarDelegate
     var loc = location(name: "")
+
+   
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             searchBar.resignFirstResponder()
             dismiss(animated: true, completion: nil)
-            // Call web server to get rating
+            // Call web server to get rating ids
             loc = location(name: searchBar.text!)
+            locationLabel.text = "Location name: "
             locationLabel.text! += " " + loc.name;
-            // Fill it with data
+            // Call web server to get ratings from rating ids and add ratings to location
             loc.ratingIDs = [5, 5, 3, 2]
             var average = 0.0
             for i in loc.ratingIDs {
@@ -124,8 +127,10 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             average /= Double(loc.ratingIDs.count)
             let averageRating:String = String(format:"%1.1f", average)
             
+            ratingLabel.text =  "Rating (x/5): "
             ratingLabel.text! += " " + averageRating;
-            
+            loc.addRating(name: "Really bad for wheelchairs")
+            reviewTable.reloadData()
             if self.map.annotations.count != 0 {
                 annotation = self.map.annotations[0]
                 self.map.removeAnnotation(annotation)
@@ -185,6 +190,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     @IBAction func addButtonPressed(_ sender: Any) {
         print("adding review")
         loc.addRating(name: loc.name)
+        loc.addRating(name: "hello")
         reviewTable.reloadData()
     }
     
@@ -202,8 +208,9 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
 
+        
         let r = loc.ratings[indexPath.row]
-        let text = r.locationName // Maybe this should be title instead?
+        let text = r.title + " " + String(r.rating) + "/5"// Maybe this should be title instead?
         
         cell.textLabel?.text = text //3.
         

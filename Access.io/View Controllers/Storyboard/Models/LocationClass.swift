@@ -22,7 +22,7 @@ class location{
         ratings = [Rating]()
     }
     func addRating(name: String) {
-        let r = Rating(userId: -1, locationId: -1, ratingString: "", ratingStars: -1, locationName: name)
+        let r = Rating(userId: -1, title: "DefaultTitle", locationId: -1, ratingString: "", ratingStars: 3, locationName: name)
         ratings.append(r)
     }
 }

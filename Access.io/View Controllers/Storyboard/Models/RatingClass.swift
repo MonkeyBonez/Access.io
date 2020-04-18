@@ -13,14 +13,20 @@ class Rating{
     var userId:Int
     var locationName:String
     var ratingId:Int
-    var ratingComment:String//users comment
-    var ratingStars:Int
+    var body:String//users comment
+    var rating:Int
+    var title:String
+    var upvotes:Int
+    var downvotes:Int
     
-    init(userId:Int, locationId:Int, ratingString:String, ratingStars:Int, locationName:String){
+    init(userId:Int, title:String, locationId:Int, ratingString:String, ratingStars:Int, locationName:String){
         self.userId = userId
-        self.ratingComment = ratingString
-        self.ratingStars = ratingStars
+        self.body = ratingString
+        self.rating = ratingStars
         self.locationName = locationName
+        self.title = title
+        upvotes = 0
+        downvotes = 0
         //load everything below this line from backend
         username = ""
         ratingId = -1
