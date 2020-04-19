@@ -130,7 +130,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             
             ratingLabel.text =  "Rating (x/5): "
             ratingLabel.text! += " " + averageRating;
-            loc.addRating(name: "Really bad for wheelchairs")
+            //loc.addRating(name: "Really bad for wheelchairs")
+            loc.addRating(stars: 4, title: "cool", userID: userId, body: "Good place")
             reviewTable.reloadData()
             if self.map.annotations.count != 0 {
                 annotation = self.map.annotations[0]
@@ -192,8 +193,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         if(!loc.name.isEmpty){
             if(userId >= 0){
                 print("adding review")
-                loc.addRating(name: loc.name)
-                loc.addRating(name: "hello")
+                loc.addRating(stars: 5, title: "amazing", userID: userId, body: "Really good place")
+                 loc.addRating(stars: 2, title: "terrible", userID: userId, body: "Really bad place")
                 reviewTable.reloadData()
             }
             else{
@@ -231,6 +232,13 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         print("viewDidAppear")
         DispatchQueue.main.async { self.reviewTable.reloadData() }
         
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedRating = loc.ratings[indexPath.row]
+        //print(selectedRating.title + "  " + String(selectedRating.rating))
+        let vc = storyboard?.instantiateViewController(withIdentifier: "singleRatingView") as! SingleRatingViewController
+        vc.currRating = selectedRating
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

@@ -21,8 +21,13 @@ class location{
         //load id from backend by passing in name
         ratings = [Rating]()
     }
-    func addRating(name: String) {
+    /*func addRating(name: String) {
         let r = Rating(userId: -1, title: "DefaultTitle", locationId: -1, ratingString: "", ratingStars: 3, locationName: name)
         ratings.append(r)
+    }*/
+    func addRating(stars: Int, title: String, userID: Int, body:String){
+        let r = Rating (userId: userID, title: title, locationId: -1, ratingString: body, ratingStars: stars, locationName: self.name, userName:"DummyUserName")
+        ratings.append(r)
+        //set locationId from backend
     }
 }

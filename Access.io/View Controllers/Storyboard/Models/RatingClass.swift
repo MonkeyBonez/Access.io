@@ -19,16 +19,17 @@ class Rating{
     var upvotes:Int
     var downvotes:Int
     
-    init(userId:Int, title:String, locationId:Int, ratingString:String, ratingStars:Int, locationName:String){
+    init(userId:Int, title:String, locationId:Int, ratingString:String, ratingStars:Int, locationName:String, userName: String){
         self.userId = userId
         self.body = ratingString
         self.rating = ratingStars
         self.locationName = locationName
         self.title = title
+        self.username = userName
         upvotes = 0
         downvotes = 0
         //load everything below this line from backend
-        username = ""
+        
         ratingId = -1
         
     }
