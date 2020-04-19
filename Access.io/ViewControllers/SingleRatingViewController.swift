@@ -17,14 +17,30 @@ class SingleRatingViewController: UIViewController{
     @IBOutlet weak var ratingLocation: UILabel!
     
     @IBOutlet weak var ratingBody: UILabel!
-    @IBOutlet weak var ratingStars: UILabel!
+   
+    @IBOutlet weak var star1: UIImageView!
+    
+    @IBOutlet weak var star2: UIImageView!
+    
+    @IBOutlet weak var star3: UIImageView!
+    
+    @IBOutlet weak var star4: UIImageView!
+    
+    @IBOutlet weak var star5: UIImageView!
     override func viewDidLoad() {
     super.viewDidLoad()
+        let starArray = [star1, star2, star3, star4, star5]
         ratingUsername.text = currRating?.username
         ratingLocation.text = currRating?.locationName
         var stars: Int = currRating?.rating ?? 0
-        ratingStars.text = String(stars) + "/5"
+        var i: Int = 0
+        while(i < stars){
+            starArray[i]?.image = UIImage(systemName: "star.fill")
+            i+=1
+        }
+       // star1.image = UIImage(named: "star")
         ratingBody.text = currRating?.body
+        
     }
     
 }
