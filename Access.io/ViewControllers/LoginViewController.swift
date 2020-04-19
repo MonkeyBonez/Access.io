@@ -102,12 +102,15 @@ class LoginViewController: UIViewController {
         //continue to map if needed
         //get userID from server
         var userId: Int = Int()
+        //Random Check -- Delete Later
         if(password == "root"){
-        userId = 0
-        }//set userID here
+            userId = 0
+        }
+            //set userID here
         else{
             userId = -1
         }
+        //--------------------
         if(userId >= 0){
             let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
             vc.connectionToServer = connectionToServer

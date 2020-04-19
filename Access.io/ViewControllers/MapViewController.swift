@@ -189,16 +189,18 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     // MARK: - Add a review
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        if(userId >= 0){
-            print("adding review")
-            loc.addRating(name: loc.name)
-            loc.addRating(name: "hello")
-            reviewTable.reloadData()
-        }
-        else{
-            print("invalid user")
-            let vc = storyboard?.instantiateViewController(withIdentifier: "SignupScreen") as! SignUpViewController
-            navigationController?.pushViewController(vc, animated: true)
+        if(!loc.name.isEmpty){
+            if(userId >= 0){
+                print("adding review")
+                loc.addRating(name: loc.name)
+                loc.addRating(name: "hello")
+                reviewTable.reloadData()
+            }
+            else{
+                print("invalid user")
+                let vc = storyboard?.instantiateViewController(withIdentifier: "SignupScreen") as! SignUpViewController
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -218,7 +220,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
 
         
         let r = loc.ratings[indexPath.row]
-        let text = r.title + " " + String(r.rating) + "/5"// Maybe this should be title instead?
+        let text = String(r.rating) + "/5" + " " + r.title // Maybe this should be title instead?
         
         cell.textLabel?.text = text //3.
         
