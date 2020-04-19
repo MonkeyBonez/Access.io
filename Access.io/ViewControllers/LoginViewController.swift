@@ -70,6 +70,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
+         IncorrectLoginText.isHidden = true
         var username:String = usernameTextField.text ?? ""
         var password:String = passwordTextField.text ?? ""
         if(password == "Password"){
@@ -95,14 +96,27 @@ class LoginViewController: UIViewController {
         encoder.outputFormatting = .prettyPrinted
         let data = try! encoder.encode(sentUser)
         let userJSON = (String(data: data, encoding: .utf8)!)*/
-        connectionToServer.sendUser(message: sentUser)
+       connectionToServer.sendUser(message: sentUser)
        //recieve connection and process based upon user id recieved
         //display incorrect if needed
         //continue to map if needed
-        let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
-        vc.connectionToServer = connectionToServer
-        navigationController?.pushViewController(vc, animated: true)
-        
+        //get userID from server
+        var userId: Int = Int()
+        if(password == "root"){
+        userId = 0
+        }//set userID here
+        else{
+            userId = -1
+        }
+        if(userId >= 0){
+            let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
+            vc.connectionToServer = connectionToServer
+            vc.userId = userId
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        else{
+            IncorrectLoginText.isHidden = false
+        }
     }
     
 

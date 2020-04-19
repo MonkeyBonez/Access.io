@@ -45,6 +45,12 @@ class MainMenuViewController: UIViewController{
          vc.connectionToServer = connectionToServer
          navigationController?.pushViewController(vc, animated: true)
     }
+    @IBAction func continueAsGuestButtonClicked(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
+        vc.connectionToServer = connectionToServer
+        vc.userId = -1
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 

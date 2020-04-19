@@ -18,6 +18,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var map: MKMapView!
     var connectionToServer:server = server()
+    var userId:Int = Int()
     var currUser:user = user(username: "", password: "")
 
     @IBOutlet weak var addReview: UIButton!
@@ -188,10 +189,17 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     // MARK: - Add a review
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        print("adding review")
-        loc.addRating(name: loc.name)
-        loc.addRating(name: "hello")
-        reviewTable.reloadData()
+        if(userId >= 0){
+            print("adding review")
+            loc.addRating(name: loc.name)
+            loc.addRating(name: "hello")
+            reviewTable.reloadData()
+        }
+        else{
+            print("invalid user")
+            let vc = storyboard?.instantiateViewController(withIdentifier: "SignupScreen") as! SignUpViewController
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     

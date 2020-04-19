@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yMW-3I-XmJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yMW-3I-XmJ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -36,6 +36,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Continue As Guest"/>
+                                <connections>
+                                    <action selector="continueAsGuestButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Od7-cH-fjY"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65c-9k-o5O">
                                 <rect key="frame" x="83" y="538" width="249" height="39"/>
@@ -57,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136" y="121"/>
+            <point key="canvasLocation" x="134.78260869565219" y="120.53571428571428"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="hoi-w9-wnW">
@@ -95,9 +98,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="usernameTextChanged:" destination="zCv-wd-40U" eventType="editingChanged" id="Vip-hv-gJC"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vnh-SD-Nwk">
                                 <rect key="frame" x="71" y="466" width="273" height="34"/>
@@ -115,17 +115,11 @@
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="zCv-wd-40U" eventType="touchUpInside" id="b0E-z7-qHQ"/>
+                                    <action selector="signUpButtonPressed:" destination="3ZI-kB-GXE" eventType="touchUpInside" id="289-yZ-1VT"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email already used" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYL-ok-ZpC">
-                                <rect key="frame" x="0.0" y="555" width="414" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.73775276830000003" green="0.12827111350000001" blue="0.04517003118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username already used" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzl-W8-EVd">
-                                <rect key="frame" x="0.0" y="607" width="414" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYL-ok-ZpC">
+                                <rect key="frame" x="0.0" y="579" width="414" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.73775276830000003" green="0.12827111350000001" blue="0.04517003118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -136,10 +130,9 @@
                         <viewLayoutGuide key="safeArea" id="d6J-cU-QCq"/>
                     </view>
                     <connections>
-                        <outlet property="emailInUse" destination="SYL-ok-ZpC" id="cFc-we-69c"/>
-                        <outlet property="emailTextBox" destination="Hk8-Ze-V22" id="LpV-eG-55a"/>
+                        <outlet property="emailTextBox" destination="nSq-qV-zjy" id="Gl6-0T-9fM"/>
+                        <outlet property="errorLabel" destination="SYL-ok-ZpC" id="9nC-Yb-zrG"/>
                         <outlet property="passwordTextBox" destination="vnh-SD-Nwk" id="by9-1Q-3X6"/>
-                        <outlet property="usernameInUse" destination="Rzl-W8-EVd" id="Bmd-8a-Gy4"/>
                         <outlet property="usernameTextBox" destination="Mx3-yx-ajO" id="6mD-D3-8ux"/>
                     </connections>
                 </viewController>
@@ -202,10 +195,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="tGR-3k-bW8">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tGR-3k-bW8" id="zJx-7E-G6O">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="Cell"/>
