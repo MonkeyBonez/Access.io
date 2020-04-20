@@ -131,7 +131,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             ratingLabel.text =  "Rating (x/5): "
             ratingLabel.text! += " " + averageRating;
             //loc.addRating(name: "Really bad for wheelchairs")
-            loc.addRating(stars: 4, title: "cool", userID: userId, body: "Good place")
+            //loc.addRating(stars: 4, title: "cool", userID: userId, body: "Good place")
             reviewTable.reloadData()
             if self.map.annotations.count != 0 {
                 annotation = self.map.annotations[0]
@@ -140,6 +140,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             
             localSearchRequest = MKLocalSearch.Request()
             localSearchRequest.naturalLanguageQuery = searchBar.text
+            localSearchRequest.region = map.region
             localSearch = MKLocalSearch(request: localSearchRequest)
             localSearch.start { [weak self] (localSearchResponse, error) -> Void in
                 
@@ -153,7 +154,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 let temp = searchBar.text! + "\n" + "Rating: " + averageRating
                 pointAnnotation.title = temp
                 pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
-                
+                print(pointAnnotation.coordinate)
                 let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: nil)
                 self!.map.centerCoordinate = pointAnnotation.coordinate
                 self!.map.addAnnotation(pinAnnotationView.annotation!)
