@@ -196,6 +196,10 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 print("adding review")
                 loc.addRating(stars: 5, title: "amazing", userID: userId, body: "Really good place")
                  loc.addRating(stars: 2, title: "terrible", userID: userId, body: "Really bad place")
+                let vc = storyboard?.instantiateViewController(withIdentifier: "addRatingView") as! AddRatingViewController
+                vc.loc = loc
+                vc.userId = userId
+                self.present(vc, animated: true, completion: nil)
                 reviewTable.reloadData()
             }
             else{

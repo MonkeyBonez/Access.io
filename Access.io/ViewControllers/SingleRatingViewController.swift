@@ -18,6 +18,7 @@ class SingleRatingViewController: UIViewController{
     
     @IBOutlet weak var ratingBody: UILabel!
    
+    @IBOutlet weak var ratingTtile: UILabel!
     @IBOutlet weak var star1: UIImageView!
     
     @IBOutlet weak var star2: UIImageView!
@@ -32,6 +33,7 @@ class SingleRatingViewController: UIViewController{
         let starArray = [star1, star2, star3, star4, star5]
         ratingUsername.text = currRating?.username
         ratingLocation.text = currRating?.locationName
+        ratingTtile.text = currRating?.title
         var stars: Int = currRating?.rating ?? 0
         var i: Int = 0
         while(i < stars){
