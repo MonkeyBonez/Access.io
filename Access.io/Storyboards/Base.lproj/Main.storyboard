@@ -372,6 +372,11 @@
                     <connections>
                         <outlet property="bodyTextField" destination="NyW-9w-8eD" id="Oex-Y0-IRz"/>
                         <outlet property="locationName" destination="nUx-e3-LUL" id="FNw-44-PzQ"/>
+                        <outlet property="star1" destination="HxO-5G-7HG" id="VqR-Hp-Dnj"/>
+                        <outlet property="star2" destination="JGt-xi-mJt" id="Fd3-p7-Oj9"/>
+                        <outlet property="star3" destination="ve6-dn-Uaa" id="E4f-Za-3bd"/>
+                        <outlet property="star4" destination="Chb-9B-ZFy" id="cNS-g6-GKI"/>
+                        <outlet property="star5" destination="QO1-Lz-aNj" id="x7w-IV-uK9"/>
                         <outlet property="titleTextField" destination="aY8-FR-Z42" id="1DH-gl-xud"/>
                     </connections>
                 </viewController>

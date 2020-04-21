@@ -8,18 +8,28 @@
 import UIKit
 
 import Foundation
-class location{
-    var ratingIDs:[Int] //each location will have an array of ratingIds assocaited with restraunt
+class Location{
     var id:Int
     var name:String
     var ratings:[Rating]
+    var lat:Double
+    var long:Double
 
-    init(name:String){
+    init(name:String, lat:Double, long:Double){
         self.name = name
-       ratingIDs = [Int]()
+        self.lat = lat
+        self.long = long
         id = -1
-        //load id from backend by passing in name
+        //load id & ratings from backend by passing in name
         ratings = [Rating]()
+    }
+    init(name:String){
+           self.name = name
+        self.lat = 0
+         self.long = 0
+         id = -1
+         //load id & ratings from backend by passing in name
+         ratings = [Rating]()
     }
     /*func addRating(name: String) {
         let r = Rating(userId: -1, title: "DefaultTitle", locationId: -1, ratingString: "", ratingStars: 3, locationName: name)
@@ -29,5 +39,16 @@ class location{
         let r = Rating (userId: userID, title: title, locationId: -1, ratingString: body, ratingStars: stars, locationName: self.name, userName:"DummyUserName")
         ratings.append(r)
         //set locationId from backend
+    }
+    func averageRating() -> Double{
+        var numReviews:Int = ratings.count
+        if(numReviews == 0){
+            return -1
+        }
+        var totalReviewCount:Int = 0
+        for rating in ratings{
+            totalReviewCount += rating.rating
+        }
+        return Double(totalReviewCount)/Double(numReviews)
     }
 }

@@ -19,7 +19,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     @IBOutlet weak var map: MKMapView!
     var connectionToServer:server = server()
     var userId:Int = Int()
-    var currUser:user = user(username: "", password: "")
+    var currUser:User = User(username: "", password: "")
 
     @IBOutlet weak var addReview: UIButton!
     @IBOutlet var reviewTable: UITableView! {
@@ -109,27 +109,24 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         }
         
         // MARK: - UISearchBarDelegate
-    var loc = location(name: "")
+    var loc = Location(name: "", lat: 0, long: 0)
 
    
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             searchBar.resignFirstResponder()
             dismiss(animated: true, completion: nil)
             // Call web server to get rating ids
-            loc = location(name: searchBar.text!)
+            loc = Location(name: searchBar.text!)
             locationLabel.text = "Location name: "
             locationLabel.text! += " " + loc.name;
             // Call web server to get ratings from rating ids and add ratings to location
-            loc.ratingIDs = [5, 5, 3, 2]
+           /* loc.ratingIDs = [5, 5, 3, 2]
             var average = 0.0
             for i in loc.ratingIDs {
                 average += Double(i)
             }
-            average /= Double(loc.ratingIDs.count)
-            let averageRating:String = String(format:"%1.1f", average)
+            average /= Double(loc.ratingIDs.count)*/
             
-            ratingLabel.text =  "Rating (x/5): "
-            ratingLabel.text! += " " + averageRating;
             //loc.addRating(name: "Really bad for wheelchairs")
             //loc.addRating(stars: 4, title: "cool", userID: userId, body: "Good place")
             reviewTable.reloadData()
@@ -151,13 +148,29 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 }
                 
                 let pointAnnotation = MKPointAnnotation()
-                let temp = searchBar.text! + "\n" + "Rating: " + averageRating
+                
+                self?.loc = Location(name: searchBar.text!, lat: localSearchResponse!.boundingRegion.center.latitude, long: localSearchResponse!.boundingRegion.center.longitude)
+                //TESTING AVERAGE
+                self?.loc.addRating(stars: 3, title: "Great", userID: 1, body: "Pretty cool")
+                self?.loc.addRating(stars: 5, title: "Amazing", userID: 5, body: "it was really cool")
+                 //-------
+                let temp = searchBar.text!
                 pointAnnotation.title = temp
+                let averageRating:String = String(format: "%.2f", (self?.loc.averageRating())!)
+                if(self?.loc.averageRating() ?? 0 > 0.0){
+                    self?.ratingLabel.text =  "Rating (x/5): "
+                    self?.ratingLabel.text! += " " + averageRating;
+                }
+                else{
+                    self?.ratingLabel.text =  "No ratings"
+                }
                 pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
+                
                 print(pointAnnotation.coordinate)
                 let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: nil)
                 self!.map.centerCoordinate = pointAnnotation.coordinate
                 self!.map.addAnnotation(pinAnnotationView.annotation!)
+                self?.reviewTable.reloadData()
             }
         }
         
@@ -194,13 +207,25 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         if(!loc.name.isEmpty){
             if(userId >= 0){
                 print("adding review")
+                //FOR TESTING
                 loc.addRating(stars: 5, title: "amazing", userID: userId, body: "Really good place")
                  loc.addRating(stars: 2, title: "terrible", userID: userId, body: "Really bad place")
+                
+                //-----
                 let vc = storyboard?.instantiateViewController(withIdentifier: "addRatingView") as! AddRatingViewController
                 vc.loc = loc
                 vc.userId = userId
                 self.present(vc, animated: true, completion: nil)
                 reviewTable.reloadData()
+                let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
+                
+                if(self.loc.averageRating() > 0.0){
+                    self.ratingLabel.text =  "Rating (x/5): "
+                    self.ratingLabel.text! += " " + averageRating;
+                }
+                else{
+                    self.ratingLabel.text =  "No ratings"
+                }
             }
             else{
                 print("invalid user")

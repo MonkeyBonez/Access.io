@@ -18,7 +18,7 @@ class server{
          socketConnection?.resume()
        }
     
-    func sendUser(message: user){
+    func sendUser(message: User){
         do{
             let encoder = JSONEncoder()
             let data = try encoder.encode(message)

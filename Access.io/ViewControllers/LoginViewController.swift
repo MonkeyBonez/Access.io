@@ -91,7 +91,7 @@ class LoginViewController: UIViewController {
         usernameChanged = false
         passwordChanged = false
         disableLoginButton()
-        var sentUser = user(username: username,password: password)
+        var sentUser = User(username: username,password: password)
        /* let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         let data = try! encoder.encode(sentUser)
