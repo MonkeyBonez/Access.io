@@ -13,15 +13,12 @@ class MainMenuViewController: UIViewController{
     
    
     var myView: MainMenuViewController!
-    var connectionToServer:server = server()
+    //var connectionToServer:server = server()
     
     @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var connectionToServer = server()
-        connectionToServer.connectToSocket()
-        connectionToServer.sendString(messageString: "Helloworld")
        // myView.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -32,7 +29,7 @@ class MainMenuViewController: UIViewController{
      let storyboard = UIStoryboard(name: "Main", bundle: nil)
        
         let vc = storyboard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginViewController
-        vc.connectionToServer = connectionToServer
+        //vc.connectionToServer = connectionToServer
         navigationController?.pushViewController(vc, animated: true)
        
            
@@ -42,12 +39,12 @@ class MainMenuViewController: UIViewController{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
          let vc = storyboard.instantiateViewController(withIdentifier: "SignupScreen") as! SignUpViewController
-         vc.connectionToServer = connectionToServer
+         //vc.connectionToServer = connectionToServer
          navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func continueAsGuestButtonClicked(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
-        vc.connectionToServer = connectionToServer
+        //vc.connectionToServer = connectionToServer
         vc.userId = -1
         navigationController?.pushViewController(vc, animated: true)
     }

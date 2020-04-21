@@ -17,7 +17,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
 
     
     @IBOutlet weak var map: MKMapView!
-    var connectionToServer:server = server()
+    
     var userId:Int = Int()
     var currUser:User = User(username: "", password: "")
 

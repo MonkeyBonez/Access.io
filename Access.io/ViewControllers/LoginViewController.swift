@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 class LoginViewController: UIViewController {
     
-    var connectionToServer:server = server()
+   
 
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var IncorrectLoginText: UILabel!
@@ -92,17 +92,13 @@ class LoginViewController: UIViewController {
         passwordChanged = false
         disableLoginButton()
         var sentUser = User(username: username,password: password)
-       /* let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        let data = try! encoder.encode(sentUser)
-        let userJSON = (String(data: data, encoding: .utf8)!)*/
-       connectionToServer.sendUser(message: sentUser)
-       //recieve connection and process based upon user id recieved
-        //display incorrect if needed
-        //continue to map if needed
-        //get userID from server
+       
+      // connectionToServer.sendUser(message: sentUser)
+       
         var userId: Int = Int()
-        //Random Check -- Delete Later
+        //here, get the userID by from backend
+        //set Parameters: requestType = login, userName = userName, password = password
+        //Random Check -- Delete bel0w Later
         if(password == "root"){
             userId = 0
         }
@@ -110,12 +106,12 @@ class LoginViewController: UIViewController {
         else{
             userId = -1
         }
-        //--------------------
+        //-------------------- DELETE ABOvE
         if(userId >= 0){
             var newUser:User = User(username: username, password: password)
             newUser.setId(id: userId)
             let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
-            vc.connectionToServer = connectionToServer
+            //vc.connectionToServer = connectionToServer
             vc.userId = userId
             vc.currUser = newUser
             navigationController?.pushViewController(vc, animated: true)
