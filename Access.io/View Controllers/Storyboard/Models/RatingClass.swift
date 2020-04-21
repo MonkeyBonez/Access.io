@@ -8,16 +8,16 @@
 
 import UIKit
 import Foundation
-class Rating{
-    var username:String
-    var userId:Int
-    var locationName:String
-    var ratingId:Int
-    var body:String//users comment
-    var rating:Int
-    var title:String
-    var upvotes:Int
-    var downvotes:Int
+@objc class Rating: NSObject{
+    @objc dynamic var username:String
+    @objc dynamic var userId:Int
+    @objc dynamic var locationName:String
+    @objc dynamic var ratingId:Int
+    @objc dynamic var body:String//users comment
+    @objc dynamic var rating:Int
+    @objc dynamic var title:String
+    @objc dynamic var upvotes:Int
+    @objc dynamic var downvotes:Int
     
     init(ratingUser: User, title:String, loc: Location, ratingString:String, ratingStars:Int){
         self.userId = ratingUser.id

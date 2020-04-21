@@ -80,17 +80,34 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             
             activityIndicator.center = self.view.center
             
-            reviewTable.reloadData()
-                let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
-                   
-                   if(self.loc.averageRating() > 0.0){
-                       self.ratingLabel.text =  "Rating (x/5): "
-                       self.ratingLabel.text! += " " + averageRating;
-                   }
-                   else{
-                       self.ratingLabel.text =  "No ratings"
-                   }
+           /* loc.observe(\Location.ratings, options: .new){location, change in
+                print("here")
+                self.reviewTable.reloadData()
+                    let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
+                       
+                       if(self.loc.averageRating() > 0.0){
+                           self.ratingLabel.text =  "Rating (x/5): "
+                           self.ratingLabel.text! += " " + averageRating;
+                       }
+                       else{
+                           self.ratingLabel.text =  "No ratings"
+                       }
+            }*/
         }
+    
+    
+    func updateUI(){
+        self.reviewTable.reloadData()
+        let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
+           
+           if(self.loc.averageRating() > 0.0){
+               self.ratingLabel.text =  "Rating (x/5): "
+               self.ratingLabel.text! += " " + averageRating;
+           }
+           else{
+               self.ratingLabel.text =  "No ratings"
+           }
+    }
         
         // MARK: - Actions
         
@@ -227,6 +244,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 vc.loc = loc
                 vc.userId = userId
                 vc.currUser = currUser
+                vc.previousVC = self
                 self.present(vc, animated: true, completion: nil)
                 reviewTable.reloadData()
                 let averageRating:String = String(format: "%.2f", self.loc.averageRating() )

@@ -11,6 +11,8 @@ import Foundation
 import UIKit
 class AddRatingViewController: UIViewController{
 
+      var previousVC:MapViewController? = nil
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var bodyTextField: UITextField!
@@ -81,7 +83,16 @@ class AddRatingViewController: UIViewController{
     
     
     @IBAction func postButtonPressed(_ sender: Any) {
-        if(titleTextField.text?.isEmpty ?? false || titleTextField.text == "Title" || ratingStars == 0 || bodyTextField.text?.isEmpty ?? false || bodyTextField.text == "Body"){
+        var alreadyReviewed: Bool = false
+        for singleRating in loc!.ratings{
+            if(Bool(currUser!.id == singleRating.userId)){
+                alreadyReviewed = true
+            }
+        }
+        if(alreadyReviewed){
+            errorField.text = "Location already reviewed"
+        }
+        else if(titleTextField.text?.isEmpty ?? false || titleTextField.text == "Title" || ratingStars == 0 || bodyTextField.text?.isEmpty ?? false || bodyTextField.text == "Body"){
             //show error
             errorField.text = "Fill out all fields"
         }// make another else if checking if user already reviewed
@@ -89,6 +100,7 @@ class AddRatingViewController: UIViewController{
             var newRating:Rating = Rating(ratingUser: currUser!, title: titleTextField.text!, loc: loc!, ratingString: bodyTextField.text!, ratingStars: ratingStars)
             //SEND TO BACKEND HERE to create review
             loc!.addReview(reviewAdd: newRating)
+            previousVC?.updateUI()
             navigationController?.popViewController(animated: true)
             dismiss(animated: true, completion: nil)
         }

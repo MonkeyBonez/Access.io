@@ -8,10 +8,10 @@
 import UIKit
 
 import Foundation
-class Location{
+@objc class Location: NSObject{
     var id:Int
     var name:String
-    var ratings:[Rating]
+    @objc dynamic var ratings:[Rating]
     var lat:Double
     var long:Double
 

@@ -12,6 +12,7 @@ class SingleRatingViewController: UIViewController{
 
     var currRating:Rating? = nil//pass in
     
+    
     @IBOutlet weak var ratingUsername: UILabel!
     
     @IBOutlet weak var ratingLocation: UILabel!
