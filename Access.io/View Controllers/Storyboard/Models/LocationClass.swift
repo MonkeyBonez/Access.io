@@ -35,10 +35,13 @@ class Location{
         let r = Rating(userId: -1, title: "DefaultTitle", locationId: -1, ratingString: "", ratingStars: 3, locationName: name)
         ratings.append(r)
     }*/
-    func addRating(stars: Int, title: String, userID: Int, body:String){
+    /*func addRating(stars: Int, title: String, userID: Int, body:String){
         let r = Rating (userId: userID, title: title, locationId: -1, ratingString: body, ratingStars: stars, locationName: self.name, userName:"DummyUserName")
         ratings.append(r)
         //set locationId from backend
+    }*/
+    func addReview(reviewAdd: Rating){
+        ratings.append(reviewAdd)
     }
     func averageRating() -> Double{
         var numReviews:Int = ratings.count

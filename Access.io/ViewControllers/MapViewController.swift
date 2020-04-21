@@ -79,6 +79,17 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             super.viewWillAppear(animated)
             
             activityIndicator.center = self.view.center
+            
+            reviewTable.reloadData()
+                let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
+                   
+                   if(self.loc.averageRating() > 0.0){
+                       self.ratingLabel.text =  "Rating (x/5): "
+                       self.ratingLabel.text! += " " + averageRating;
+                   }
+                   else{
+                       self.ratingLabel.text =  "No ratings"
+                   }
         }
         
         // MARK: - Actions
@@ -151,8 +162,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 
                 self?.loc = Location(name: searchBar.text!, lat: localSearchResponse!.boundingRegion.center.latitude, long: localSearchResponse!.boundingRegion.center.longitude)
                 //TESTING AVERAGE
-                self?.loc.addRating(stars: 3, title: "Great", userID: 1, body: "Pretty cool")
-                self?.loc.addRating(stars: 5, title: "Amazing", userID: 5, body: "it was really cool")
+                /*self?.loc.addRating(stars: 3, title: "Great", userID: 1, body: "Pretty cool")
+                self?.loc.addRating(stars: 5, title: "Amazing", userID: 5, body: "it was really cool")*/
                  //-------
                 let temp = searchBar.text!
                 pointAnnotation.title = temp
@@ -208,13 +219,14 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             if(userId >= 0){
                 print("adding review")
                 //FOR TESTING
-                loc.addRating(stars: 5, title: "amazing", userID: userId, body: "Really good place")
-                 loc.addRating(stars: 2, title: "terrible", userID: userId, body: "Really bad place")
+                /*loc.addRating(stars: 5, title: "amazing", userID: userId, body: "Really good place")
+                 loc.addRating(stars: 2, title: "terrible", userID: userId, body: "Really bad place")*/
                 
                 //-----
                 let vc = storyboard?.instantiateViewController(withIdentifier: "addRatingView") as! AddRatingViewController
                 vc.loc = loc
                 vc.userId = userId
+                vc.currUser = currUser
                 self.present(vc, animated: true, completion: nil)
                 reviewTable.reloadData()
                 let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
@@ -233,6 +245,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
+       
     }
     
     
@@ -270,7 +283,9 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         vc.currRating = selectedRating
         self.present(vc, animated: true, completion: nil)
     }
+   
+     
+
+
+
 }
-
-
-

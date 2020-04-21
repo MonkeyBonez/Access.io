@@ -15,16 +15,21 @@ class AddRatingViewController: UIViewController{
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var bodyTextField: UITextField!
     var userId: Int?
+    var currUser: User?
     var loc: Location?
-    var starArray: [UIImageView] = []
-    @IBOutlet weak var star1: UIImageView!
-    @IBOutlet weak var star2: UIImageView!
-    @IBOutlet weak var star3: UIImageView!
-    @IBOutlet weak var star4: UIImageView!
-    @IBOutlet weak var star5: UIImageView!
+    var starArray: [UIButton] = []
+    var ratingStars: Int = 0
+    @IBOutlet weak var errorField: UILabel!
     
-override func viewDidLoad() {
+    @IBOutlet weak var star1: UIButton!
+    @IBOutlet weak var star2: UIButton!
+    @IBOutlet weak var star3: UIButton!
+    @IBOutlet weak var star4: UIButton!
+    @IBOutlet weak var star5: UIButton!
+    
+    override func viewDidLoad() {
    super.viewDidLoad()
+        errorField.text = ""
     locationName.text = loc?.name
     starArray = [star1, star2, star3, star4, star5]
     }
@@ -42,15 +47,50 @@ override func viewDidLoad() {
     }
     
     func starClicked(starNumber:Int){
+        ratingStars = starNumber
         var i:Int = 0
         while(i <= 4){
             if(i < (starNumber)){
-                starArray[i].image = UIImage(systemName: "star.fill")
+                starArray[i].setImage(UIImage(systemName: "star.fill"), for: .normal)
+              //  starArray[i].image = UIImage(systemName: "star.fill")
             }
             else{
-               starArray[i].image = UIImage(systemName: "star")
+               starArray[i].setImage(UIImage(systemName: "star"), for: .normal)
+                
             }
+            i+=1
         }
+        
     }
     
+    @IBAction func star1Clicked(_ sender: Any) {
+        starClicked(starNumber: 1)
+    }
+    @IBAction func star2Clicked(_ sender: Any) {
+        starClicked(starNumber: 2)
+    }
+    @IBAction func star3Clicked(_ sender: Any) {
+        starClicked(starNumber: 3)
+    }
+    @IBAction func star4Clicked(_ sender: Any) {
+        starClicked(starNumber: 4)
+    }
+    @IBAction func star5Clicked(_ sender: Any) {
+        starClicked(starNumber: 5)
+    }
+    
+    
+    @IBAction func postButtonPressed(_ sender: Any) {
+        if(titleTextField.text?.isEmpty ?? false || titleTextField.text == "Title" || ratingStars == 0 || bodyTextField.text?.isEmpty ?? false || bodyTextField.text == "Body"){
+            //show error
+            errorField.text = "Fill out all fields"
+        }// make another else if checking if user already reviewed
+        else{
+            var newRating:Rating = Rating(ratingUser: currUser!, title: titleTextField.text!, loc: loc!, ratingString: bodyTextField.text!, ratingStars: ratingStars)
+            //SEND TO BACKEND HERE to create review
+            loc!.addReview(reviewAdd: newRating)
+            navigationController?.popViewController(animated: true)
+            dismiss(animated: true, completion: nil)
+        }
+    }
 }

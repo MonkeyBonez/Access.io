@@ -327,26 +327,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HxO-5G-7HG">
-                                <rect key="frame" x="40" y="221" width="55" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-xi-mJt">
-                                <rect key="frame" x="86" y="221" width="55" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ve6-dn-Uaa">
-                                <rect key="frame" x="134" y="221" width="55" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Chb-9B-ZFy">
-                                <rect key="frame" x="181" y="221" width="55" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QO1-Lz-aNj">
-                                <rect key="frame" x="227" y="221" width="55" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aY8-FR-Z42">
                                 <rect key="frame" x="20" y="122" width="374" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -356,7 +336,7 @@
                                     <action selector="titleEditingDidBegin:" destination="lOR-Ld-XIo" eventType="editingDidBegin" id="N1Q-2T-40h"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Body" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NyW-9w-8eD">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" text="Body" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NyW-9w-8eD">
                                 <rect key="frame" x="20" y="332" width="374" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -365,18 +345,90 @@
                                     <action selector="bodyEditingDidBegin:" destination="lOR-Ld-XIo" eventType="editingDidBegin" id="Udk-rs-Ic2"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qgp-0p-TAp">
+                                <rect key="frame" x="44" y="231" width="43" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" image="star" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="230" scale="default"/>
+                                </state>
+                                <connections>
+                                    <action selector="star1Clicked:" destination="lOR-Ld-XIo" eventType="touchUpInside" id="IVH-g8-PTG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLf-px-9bg">
+                                <rect key="frame" x="86" y="231" width="43" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" image="star" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="230" scale="default"/>
+                                </state>
+                                <connections>
+                                    <action selector="star2Clicked:" destination="lOR-Ld-XIo" eventType="touchUpInside" id="UIV-dS-dRs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkD-zN-dH3">
+                                <rect key="frame" x="129" y="231" width="43" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" image="star" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="230" scale="default"/>
+                                </state>
+                                <connections>
+                                    <action selector="star3Clicked:" destination="lOR-Ld-XIo" eventType="touchUpInside" id="rje-L5-aOb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yIj-dI-Y3O">
+                                <rect key="frame" x="171" y="231" width="43" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" image="star" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="230" scale="default"/>
+                                </state>
+                                <connections>
+                                    <action selector="star4Clicked:" destination="lOR-Ld-XIo" eventType="touchUpInside" id="sTR-hC-cSP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHS-SP-Tnd">
+                                <rect key="frame" x="214" y="231" width="43" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" image="star" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="230" scale="default"/>
+                                </state>
+                                <connections>
+                                    <action selector="star5Clicked:" destination="lOR-Ld-XIo" eventType="touchUpInside" id="Fnn-p0-XDc"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GnC-Za-VNn">
+                                <rect key="frame" x="0.0" y="626" width="414" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.73775276830000003" green="0.12827111350000001" blue="0.04517003118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K0K-Iy-YVU">
+                                <rect key="frame" x="131" y="655" width="152" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Post"/>
+                                <connections>
+                                    <action selector="postButtonPressed:" destination="lOR-Ld-XIo" eventType="touchUpInside" id="iA9-a6-RIs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="3Oc-df-lpD"/>
                     </view>
                     <connections>
                         <outlet property="bodyTextField" destination="NyW-9w-8eD" id="Oex-Y0-IRz"/>
+                        <outlet property="errorField" destination="GnC-Za-VNn" id="upV-Tc-XTF"/>
                         <outlet property="locationName" destination="nUx-e3-LUL" id="FNw-44-PzQ"/>
-                        <outlet property="star1" destination="HxO-5G-7HG" id="VqR-Hp-Dnj"/>
-                        <outlet property="star2" destination="JGt-xi-mJt" id="Fd3-p7-Oj9"/>
-                        <outlet property="star3" destination="ve6-dn-Uaa" id="E4f-Za-3bd"/>
-                        <outlet property="star4" destination="Chb-9B-ZFy" id="cNS-g6-GKI"/>
-                        <outlet property="star5" destination="QO1-Lz-aNj" id="x7w-IV-uK9"/>
+                        <outlet property="star1" destination="Qgp-0p-TAp" id="Zfn-CJ-RTa"/>
+                        <outlet property="star2" destination="tLf-px-9bg" id="R2K-Xx-CnK"/>
+                        <outlet property="star3" destination="CkD-zN-dH3" id="Evn-Tu-LbJ"/>
+                        <outlet property="star4" destination="yIj-dI-Y3O" id="ZmX-0W-eAs"/>
+                        <outlet property="star5" destination="tHS-SP-Tnd" id="ywM-cP-bwf"/>
                         <outlet property="titleTextField" destination="aY8-FR-Z42" id="1DH-gl-xud"/>
                     </connections>
                 </viewController>

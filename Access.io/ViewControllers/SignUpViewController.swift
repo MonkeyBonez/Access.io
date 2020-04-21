@@ -71,9 +71,12 @@ class SignUpViewController: UIViewController {
                 errorLabel.text = "Username already used"
             }
             else if (userId >= 0){
+                var newUser:User = User(username: username, password: password)
+                newUser.setId(id: userId)
                 let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
                 vc.connectionToServer = connectionToServer
                 vc.userId = userId
+                vc.currUser = newUser
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
