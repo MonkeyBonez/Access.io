@@ -76,6 +76,7 @@ class SignUpViewController: UIViewController {
                 let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
               //  vc.connectionToServer = connectionToServer
                 vc.userId = userId
+                print(userId)
                 vc.currUser = newUser
                 navigationController?.pushViewController(vc, animated: true)
             }

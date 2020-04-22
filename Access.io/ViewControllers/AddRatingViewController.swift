@@ -9,9 +9,13 @@
 
 import Foundation
 import UIKit
+
+protocol ReviewDelegate: class {
+    func addRating(rating: Rating)
+}
 class AddRatingViewController: UIViewController{
 
-      var previousVC:MapViewController? = nil
+      //var previousVC:MapViewController? = nil
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationName: UILabel!
@@ -21,6 +25,7 @@ class AddRatingViewController: UIViewController{
     var loc: Location?
     var starArray: [UIButton] = []
     var ratingStars: Int = 0
+    weak var delegate: ReviewDelegate?
     @IBOutlet weak var errorField: UILabel!
     
     @IBOutlet weak var star1: UIButton!
@@ -98,9 +103,11 @@ class AddRatingViewController: UIViewController{
         }// make another else if checking if user already reviewed
         else{
             var newRating:Rating = Rating(ratingUser: currUser!, title: titleTextField.text!, loc: loc!, ratingString: bodyTextField.text!, ratingStars: ratingStars)
-            //SEND TO BACKEND HERE to create review
-            loc!.addReview(reviewAdd: newRating)
-            previousVC?.updateUI()
+            delegate?.addRating(rating: newRating)
+            
+            
+//            loc!.addReview(reviewAdd: newRating)
+            //previousVC?.updateUI()
             navigationController?.popViewController(animated: true)
             dismiss(animated: true, completion: nil)
         }

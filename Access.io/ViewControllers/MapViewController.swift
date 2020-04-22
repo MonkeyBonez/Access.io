@@ -11,8 +11,7 @@ import Foundation
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate{
-
+class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ReviewDelegate {
     
 
     
@@ -20,6 +19,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     
     var userId:Int = Int()
     var currUser:User = User(username: "", password: "")
+    var loc = Location(name: "", lat: 0, long: 0)
 
     @IBOutlet weak var addReview: UIButton!
     @IBOutlet var reviewTable: UITableView! {
@@ -73,6 +73,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             reviewTable.dataSource = self
             reviewTable.delegate = self
             reviewTable.reloadData()
+            zoomToCurrentLocation()
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +96,12 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             }*/
         }
     
+    func addRating(rating: Rating) {
+          loc.addReview(reviewAdd: rating)
+        updateUI()
+        //SEND TO BACKEND HERE to create review
+    }
+    
     
     func updateUI(){
         self.reviewTable.reloadData()
@@ -112,7 +119,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         // MARK: - Actions
         
         @objc func currentLocationButtonAction(_ sender: UIBarButtonItem) {
-            if (CLLocationManager.locationServicesEnabled()) {
+           /* if (CLLocationManager.locationServicesEnabled()) {
                 if locationManager == nil {
                     locationManager = CLLocationManager()
                 }
@@ -122,8 +129,24 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 locationManager.requestAlwaysAuthorization()
                 locationManager.startUpdatingLocation()
                 isCurrentLocation = true
-            }
+            }*/
+            zoomToCurrentLocation()
         }
+    func zoomToCurrentLocation(){
+        if (CLLocationManager.locationServicesEnabled()) {
+            //check
+            /*locationManager = nil
+            if locationManager == nil {*/
+                locationManager = CLLocationManager()
+            //}
+            locationManager?.requestWhenInUseAuthorization()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+            isCurrentLocation = true
+        }
+    }
         
         // MARK: - Search
         
@@ -137,7 +160,6 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         }
         
         // MARK: - UISearchBarDelegate
-    var loc = Location(name: "", lat: 0, long: 0)
 
    
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -244,7 +266,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 vc.loc = loc
                 vc.userId = userId
                 vc.currUser = currUser
-                vc.previousVC = self
+                vc.delegate = self
+                //vc.previousVC = self
                 self.present(vc, animated: true, completion: nil)
                 reviewTable.reloadData()
                 let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
