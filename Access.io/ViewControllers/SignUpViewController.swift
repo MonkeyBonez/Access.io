@@ -22,6 +22,27 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         //connect to server
     }
+    
+    func query(address: String) -> String {
+        let url = URL(string: address)
+        let semaphore = DispatchSemaphore(value: 0)
+
+        var result: String = ""
+        
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            result = String(data: data!, encoding: String.Encoding.utf8)!
+//            print("result 1: " + result)
+
+            semaphore.signal()
+        }
+        
+        task.resume()
+        semaphore.wait()
+//        print("result: " + result)
+        let trimmedResult = result.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmedResult
+    }
+    
     @IBAction func signUpButtonPressed(_ sender: Any) {
         errorLabel.text = ""
         var email: String = emailTextBox.text ?? ""
@@ -54,6 +75,9 @@ class SignUpViewController: UIViewController {
         }
         //send to server & check if username and email already used
         else{
+            let url = "http://localhost:8080/CSCI201_Group_6/LoginServ?requestType=register&email=" + emailTextBox.text! + "&name=" + usernameTextBox.text! + "&userName=" + usernameTextBox.text! + "&password=" + passwordTextBox.text!
+            let response = query(address: url)
+            print("got this response: " + response)
             //backend checks
             var userId: Int = 0
             //random checks - delete later -----
@@ -64,22 +88,25 @@ class SignUpViewController: UIViewController {
                 userId = -1
             }
             // -------
-            if (userId == -1){
-                errorLabel.text = "Email already used"
+            if (response == "This user already exists."){
+                errorLabel.text = "User already exists"
+            } else {
+                let intResponse = Int(response)
+                if (intResponse! >= 0){
+                               
+                    var newUser:User = User(username: usernameTextBox.text!, password: passwordTextBox.text!)
+                    newUser.setId(id: intResponse!)
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
+                             //  vc.connectionToServer = connectionToServer
+                    vc.userId = userId
+                    print(userId)
+                    vc.currUser = newUser
+                    navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    errorLabel.text = "Could not insert"
+                }
             }
-            else if(userId == -2){
-                errorLabel.text = "Username already used"
-            }
-            else if (userId >= 0){
-                var newUser:User = User(username: username, password: password)
-                newUser.setId(id: userId)
-                let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
-              //  vc.connectionToServer = connectionToServer
-                vc.userId = userId
-                print(userId)
-                vc.currUser = newUser
-                navigationController?.pushViewController(vc, animated: true)
-            }
+           
         }
     }
     
