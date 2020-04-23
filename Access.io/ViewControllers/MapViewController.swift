@@ -20,7 +20,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     var userId:Int = Int()
     var currUser:User = User(username: "", password: "")
     var loc = Location(name: "", lat: 0, long: 0)
-
+    var validLoc:Bool = false
     @IBOutlet weak var addReview: UIButton!
     @IBOutlet var reviewTable: UITableView! {
         didSet {
@@ -72,7 +72,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             
             reviewTable.dataSource = self
             reviewTable.delegate = self
-            reviewTable.reloadData()
+            //reviewTable.reloadData()
             zoomToCurrentLocation()
         }
         
@@ -104,6 +104,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     
     
     func updateUI(){
+        locationLabel.text = "Location name: "
+        locationLabel.text! += " " + loc.name;
         self.reviewTable.reloadData()
         let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
            
@@ -166,9 +168,9 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             searchBar.resignFirstResponder()
             dismiss(animated: true, completion: nil)
             // Call web server to get rating ids
+            var prevLoc = loc
             loc = Location(name: searchBar.text!)
-            locationLabel.text = "Location name: "
-            locationLabel.text! += " " + loc.name;
+            
             // Call web server to get ratings from rating ids and add ratings to location
            /* loc.ratingIDs = [5, 5, 3, 2]
             var average = 0.0
@@ -179,7 +181,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             
             //loc.addRating(name: "Really bad for wheelchairs")
             //loc.addRating(stars: 4, title: "cool", userID: userId, body: "Good place")
-            reviewTable.reloadData()
+            //reviewTable.reloadData()
             if self.map.annotations.count != 0 {
                 annotation = self.map.annotations[0]
                 self.map.removeAnnotation(annotation)
@@ -192,35 +194,57 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             localSearch.start { [weak self] (localSearchResponse, error) -> Void in
                 
                 if localSearchResponse == nil {
-                    let alert = UIAlertView(title: nil, message: "Place not found", delegate: self, cancelButtonTitle: "Try again")
-                    alert.show()
+                   /* let alert = UIAlertView(title: nil, message: "Place not found", delegate: self, cancelButtonTitle: "Try again")
+                    alert.show()*/
+                    let alertController = UIAlertController(title: "Location Not Found", message: "Please search for another location", preferredStyle: UIAlertController.Style.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
+                    /*let DestructiveAction = UIAlertAction(title: "Destructive", style: UIAlertAction.Style.destructive) {
+                        (result : UIAlertAction) -> Void in
+                        print("Destructive")
+                    }*/
+
+                    // Replace UIAlertActionStyle.Default by UIAlertActionStyle.default
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                        (result : UIAlertAction) -> Void in
+                        print("OK")
+                    }
+
+                    //alertController.addAction(DestructiveAction)
+                    alertController.addAction(okAction)
+                    self?.present(alertController, animated: true, completion: nil)
+                    self!.validLoc = false
+                    self!.loc = prevLoc
                     return
                 }
-                
-                let pointAnnotation = MKPointAnnotation()
-                
-                self?.loc = Location(name: searchBar.text!, lat: localSearchResponse!.boundingRegion.center.latitude, long: localSearchResponse!.boundingRegion.center.longitude)
-                //TESTING AVERAGE
-                /*self?.loc.addRating(stars: 3, title: "Great", userID: 1, body: "Pretty cool")
-                self?.loc.addRating(stars: 5, title: "Amazing", userID: 5, body: "it was really cool")*/
-                 //-------
-                let temp = searchBar.text!
-                pointAnnotation.title = temp
-                let averageRating:String = String(format: "%.2f", (self?.loc.averageRating())!)
+                else{
+                    let pointAnnotation = MKPointAnnotation()
+                    
+                    self?.loc = Location(name: searchBar.text!, lat: localSearchResponse!.boundingRegion.center.latitude, long: localSearchResponse!.boundingRegion.center.longitude)
+                    //TESTING AVERAGE
+                    /*self?.loc.addRating(stars: 3, title: "Great", userID: 1, body: "Pretty cool")
+                    self?.loc.addRating(stars: 5, title: "Amazing", userID: 5, body: "it was really cool")*/
+                     //-------
+                    let temp = searchBar.text!
+                    pointAnnotation.title = temp
+                    self!.updateUI()
+                    
+                /*let averageRating:String = String(format: "%.2f", (self?.loc.averageRating())!)
                 if(self?.loc.averageRating() ?? 0 > 0.0){
                     self?.ratingLabel.text =  "Rating (x/5): "
                     self?.ratingLabel.text! += " " + averageRating;
                 }
                 else{
-                    self?.ratingLabel.text =  "No ratings"
-                }
+                    self?.ratingLabel.text =  "No ratings"*/
+                
                 pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude: localSearchResponse!.boundingRegion.center.longitude)
                 
                 print(pointAnnotation.coordinate)
                 let pinAnnotationView = MKPinAnnotationView(annotation: pointAnnotation, reuseIdentifier: nil)
                 self!.map.centerCoordinate = pointAnnotation.coordinate
                 self!.map.addAnnotation(pinAnnotationView.annotation!)
-                self?.reviewTable.reloadData()
+                //self?.reviewTable.reloadData()
+                    self!.validLoc = true
+                
+            }
             }
         }
         
@@ -254,7 +278,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     // MARK: - Add a review
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        if(!loc.name.isEmpty){
+        if(!loc.name.isEmpty && validLoc){
             if(userId >= 0){
                 print("adding review")
                 //FOR TESTING
@@ -269,7 +293,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 vc.delegate = self
                 //vc.previousVC = self
                 self.present(vc, animated: true, completion: nil)
-                reviewTable.reloadData()
+                //reviewTable.reloadData()
                 let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
                 
                 if(self.loc.averageRating() > 0.0){
@@ -314,7 +338,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear")
-        DispatchQueue.main.async { self.reviewTable.reloadData() }
+        DispatchQueue.main.async { self.updateUI() }
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
