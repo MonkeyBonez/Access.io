@@ -106,12 +106,30 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     func updateUI(){
         locationLabel.text = "Location name: "
         locationLabel.text! += " " + loc.name;
+        var url : String = "http://localhost:8080/CSCI201_Group_6/LocServ?locationName="
+        
+        url += loc.name + "&latitude=" + String(format:"%f", loc.lat)
+        url += "&longitude=" + String(format:"%f", loc.long)
+        print("URL FROM MAP:" + url)
+        let response = self.query(address: url)
+        
+        print("got this response map: " + response)
+        
+        if (response == "Location doesn't exist.") {
+            //i dont know
+        } else {
+            let data = response.data(using: .utf8)
+            let jsonLocation: JSONLocation = try! JSONDecoder().decode(JSONLocation.self, from: data!)
+            print(jsonLocation.website)
+            self.loc.rating = jsonLocation.rating
+            
+        }
         self.reviewTable.reloadData()
+
         let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
-           
+        
            if(self.loc.averageRating() > 0.0){
-               self.ratingLabel.text =  "Rating (x/5): "
-               self.ratingLabel.text! += " " + averageRating;
+            self.ratingLabel.text = String(format: "Rating: %.2f/5", self.loc.rating)
            }
            else{
                self.ratingLabel.text =  "No ratings"
@@ -159,6 +177,26 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             searchController.hidesNavigationBarDuringPresentation = false
             self.searchController.searchBar.delegate = self
             present(searchController, animated: true, completion: nil)
+        }
+        // MARK: - Query
+        func query(address: String) -> String {
+            let url = URL(string: address)
+            let semaphore = DispatchSemaphore(value: 0)
+
+            var result: String = ""
+            
+            let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+                result = String(data: data!, encoding: String.Encoding.utf8)!
+    //            print("result 1: " + result)
+
+                semaphore.signal()
+            }
+            
+            task.resume()
+            semaphore.wait()
+    //        print("result: " + result)
+            let trimmedResult = result.trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmedResult
         }
         
         // MARK: - UISearchBarDelegate
@@ -219,6 +257,9 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                     let pointAnnotation = MKPointAnnotation()
                     
                     self?.loc = Location(name: searchBar.text!, lat: localSearchResponse!.boundingRegion.center.latitude, long: localSearchResponse!.boundingRegion.center.longitude)
+                    
+                    
+
                     //TESTING AVERAGE
                     /*self?.loc.addRating(stars: 3, title: "Great", userID: 1, body: "Pretty cool")
                     self?.loc.addRating(stars: 5, title: "Amazing", userID: 5, body: "it was really cool")*/

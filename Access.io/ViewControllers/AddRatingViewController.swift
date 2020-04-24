@@ -111,12 +111,16 @@ class AddRatingViewController: UIViewController{
     
     
     @IBAction func postButtonPressed(_ sender: Any) {
+        // useless?
         var alreadyReviewed: Bool = false
         for singleRating in loc!.ratings{
             if(Bool(currUser!.id == singleRating.userId)){
                 alreadyReviewed = true
+                
             }
         }
+        // useless?
+
         if(alreadyReviewed){
             errorField.text = "Location already reviewed"
         }
@@ -127,6 +131,16 @@ class AddRatingViewController: UIViewController{
         else{
             var newRating:Rating = Rating(ratingUser: currUser!, title: titleTextField.text!, loc: loc!, ratingString: bodyTextField.text!, ratingStars: ratingStars)
             delegate?.addRating(rating: newRating)
+            
+            var url : String = "http://localhost:8080/CSCI201_Group_6/ReviewServ?locationID=1&userID=1"
+            
+            url += "&requestType=submit&title=" + titleTextField.text!
+            url += "&body=" + bodyTextField.text!
+            url += "&rating=" + String(format: "%d", ratingStars)
+            print("URL FROM ADD RATING:" + url)
+            let response = query(address: url)
+            
+            print("got this response ADD RATING: " + response)
             
             
 //            loc!.addReview(reviewAdd: newRating)

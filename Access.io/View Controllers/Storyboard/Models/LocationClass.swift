@@ -8,17 +8,35 @@
 import UIKit
 
 import Foundation
+
+struct JSONLocation: Decodable {
+    let name: String
+    let website: String
+    let address:String
+    let phoneNumber:String
+    let rating: Double
+}
+
 @objc class Location: NSObject{
     var id:Int
     var name:String
-    @objc dynamic var ratings:[Rating]
+    var address:String
+    var phoneNumber:String
+    var website:String
+    var rating: Double
     var lat:Double
     var long:Double
+    @objc dynamic var ratings:[Rating]
 
     init(name:String, lat:Double, long:Double){
         self.name = name
         self.lat = lat
         self.long = long
+        self.address = ""
+        self.phoneNumber = ""
+        self.website = ""
+        self.rating = 0.0
+        
         id = -1
         //load id & ratings from backend by passing in name
         ratings = [Rating]()
@@ -27,6 +45,10 @@ import Foundation
            self.name = name
         self.lat = 0
          self.long = 0
+        self.address = ""
+        self.phoneNumber = ""
+        self.website = ""
+        self.rating = 0.0
          id = -1
          //load id & ratings from backend by passing in name
          ratings = [Rating]()
@@ -44,14 +66,15 @@ import Foundation
         ratings.append(reviewAdd)
     }
     func averageRating() -> Double{
-        var numReviews:Int = ratings.count
-        if(numReviews == 0){
-            return -1
-        }
-        var totalReviewCount:Int = 0
-        for rating in ratings{
-            totalReviewCount += rating.rating
-        }
-        return Double(totalReviewCount)/Double(numReviews)
+//        var numReviews:Int = ratings.count
+//        if(numReviews == 0){
+//            return -1
+//        }
+//        var totalReviewCount:Int = 0
+//        for rating in ratings{
+//            totalReviewCount += rating.rating
+//        }
+//        return Double(totalReviewCount)/Double(numReviews)
+        return rating
     }
 }
