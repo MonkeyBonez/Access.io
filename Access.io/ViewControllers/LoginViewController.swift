@@ -135,7 +135,7 @@ class LoginViewController: UIViewController {
             newUser.setId(id: userId)
             let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
             //vc.connectionToServer = connectionToServer
-            vc.userId = userId
+            //vc.userId = userId
             vc.currUser = newUser
             navigationController?.pushViewController(vc, animated: true)
         }

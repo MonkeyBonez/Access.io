@@ -17,7 +17,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var map: MKMapView!
     
-    var userId:Int = Int()
+    //var userId:Int = Int()
     var currUser:User = User(username: "", password: "")
     var loc = Location(name: "", lat: 0, long: 0)
     var validLoc:Bool = false
@@ -279,7 +279,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     
     @IBAction func addButtonPressed(_ sender: Any) {
         if(!loc.name.isEmpty && validLoc){
-            if(userId >= 0){
+            if(currUser.id >= 0){
                 print("adding review")
                 //FOR TESTING
                 /*loc.addRating(stars: 5, title: "amazing", userID: userId, body: "Really good place")
@@ -288,7 +288,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 //-----
                 let vc = storyboard?.instantiateViewController(withIdentifier: "addRatingView") as! AddRatingViewController
                 vc.loc = loc
-                vc.userId = userId
+                //vc.userId = userId
                 vc.currUser = currUser
                 vc.delegate = self
                 //vc.previousVC = self

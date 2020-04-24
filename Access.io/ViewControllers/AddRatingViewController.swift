@@ -20,7 +20,7 @@ class AddRatingViewController: UIViewController{
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var bodyTextField: UITextField!
-    var userId: Int?
+    //var userId: Int?
     var currUser: User?
     var loc: Location?
     var starArray: [UIButton] = []

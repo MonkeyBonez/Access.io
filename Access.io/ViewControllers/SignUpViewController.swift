@@ -98,8 +98,8 @@ class SignUpViewController: UIViewController {
                     newUser.setId(id: intResponse!)
                     let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
                              //  vc.connectionToServer = connectionToServer
-                    vc.userId = userId
-                    print(userId)
+                    //vc.userId = userId
+                    //print(userId)
                     vc.currUser = newUser
                     navigationController?.pushViewController(vc, animated: true)
                 } else {

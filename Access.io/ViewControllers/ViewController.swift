@@ -45,7 +45,9 @@ class MainMenuViewController: UIViewController{
     @IBAction func continueAsGuestButtonClicked(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
         //vc.connectionToServer = connectionToServer
-        vc.userId = -1
+        var guestUser: User = User(username: "SHOULD NOT BE VISIBLE: Guest", password: "Guest")
+        guestUser.setId(id: -1)
+        vc.currUser = guestUser
         navigationController?.pushViewController(vc, animated: true)
     }
 }
