@@ -41,6 +41,29 @@ class AddRatingViewController: UIViewController{
     starArray = [star1, star2, star3, star4, star5]
     }
     
+        func query(address: String) -> String {
+            print("ADDRESS FROM QUERY: " + address)
+            let url = URL(string: address)
+            let semaphore = DispatchSemaphore(value: 0)
+
+            var result: String = ""
+            
+            let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+                print("before result: " + result)
+
+                result = String(data: data!, encoding: String.Encoding.utf8)!
+                print("result 1: " + result)
+
+                semaphore.signal()
+            }
+            
+            task.resume()
+            semaphore.wait()
+    //        print("result: " + result)
+            let trimmedResult = result.trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmedResult
+        }
+    
     @IBAction func titleEditingDidBegin(_ sender: Any) {
         if(titleTextField.text  == "Title"){
             titleTextField.text = ""

@@ -31,7 +31,30 @@ class LoginViewController: UIViewController {
     }
     
     
+        
+        func query(address: String) -> String {
+            print("ADDRESS FROM QUERY: " + address)
+            let url = URL(string: address)
+            let semaphore = DispatchSemaphore(value: 0)
 
+            var result: String = ""
+            
+            let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+                print("before result: " + result)
+
+                result = String(data: data!, encoding: String.Encoding.utf8)!
+                print("result 1: " + result)
+
+                semaphore.signal()
+            }
+            
+            task.resume()
+            semaphore.wait()
+    //        print("result: " + result)
+            let trimmedResult = result.trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmedResult
+        }
+        
 
     @IBAction func usernameTextChanged(_ sender: Any) {
         usernameChanged = true
@@ -91,22 +114,22 @@ class LoginViewController: UIViewController {
         usernameChanged = false
         passwordChanged = false
         disableLoginButton()
-        var sentUser = User(username: username,password: password)
+//        var sentUser = User(username: username,password: password)
        
-      // connectionToServer.sendUser(message: sentUser)
-       
+        // After checking for errors in the text fields
+        // Use sample URL
+        // localhost:8080/CSCI201_Group_6/LoginServ?requestType=login&userName=xxx&password=xxx
+
+        let url = "http://localhost:8080/CSCI201_Group_6/LoginServ?requestType=login&userName=" + usernameTextField.text! + "&password=" + passwordTextField.text!
+        print(url)
+        // Query the login
+        let response = query(address: url)
+        print("USERID from login: " + response)
         var userId: Int = Int()
-        //here, get the userID by from backend
-        //set Parameters: requestType = login, userName = userName, password = password
-        //Random Check -- Delete bel0w Later
-        if(password == "root"){
-            userId = 0
-        }
-            //set userID here
-        else{
-            userId = -1
-        }
-        //-------------------- DELETE ABOvE
+        //Get the userID from the back end
+        userId = Int(response)!
+        
+        //If the userID is valid then create a new user
         if(userId >= 0){
             var newUser:User = User(username: username, password: password)
             newUser.setId(id: userId)
