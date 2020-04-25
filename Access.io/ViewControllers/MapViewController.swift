@@ -115,14 +115,22 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         
         print("got this response map: " + response)
         
-        if (response == "Location doesn't exist.") {
+        if (response == "Location doesn't exist." || response == "") {
             //i dont know
         } else {
             let data = response.data(using: .utf8)
             let jsonLocation: JSONLocation = try! JSONDecoder().decode(JSONLocation.self, from: data!)
             print(jsonLocation.website)
-            self.loc.rating = jsonLocation.rating
-            
+            loc.locationID = jsonLocation.id
+            self.loc.rating = jsonLocation.otherRating
+            // init(ratingUser: User, title:String, loc: Location, ratingString:String, ratingStars:Int){
+  
+            for i in jsonLocation.reviews {
+                var reviewUser = User(username: i.userName, password: "", email: "")
+                var r = Rating(ratingUser: reviewUser, title: i.title, loc: loc, ratingString: i.body, ratingStars: Int(i.otherRating))
+                
+                loc.addReview(reviewAdd: r)
+            }
         }
         self.reviewTable.reloadData()
 

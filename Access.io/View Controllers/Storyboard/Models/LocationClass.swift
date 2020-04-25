@@ -8,17 +8,35 @@
 import UIKit
 
 import Foundation
+struct JSONReview: Decodable {
+    let title: String
+    let body: String
+    let rampRating: Double
+    let doorRating: Double
+    let elevatorRating: Double
+    let otherRating: Double
+    let userName: String
+    let upvotes: Int
+    let downvotes: Int
+    let image: String
+    let locationName: String
+}
 
 struct JSONLocation: Decodable {
+    let id: Int
     let name: String
     let website: String
     let address:String
     let phoneNumber:String
-    let rating: Double
+    let rampRating: Double
+    let doorRating: Double
+    let elevatorRating: Double
+    let otherRating: Double
+    let reviews: [JSONReview]
 }
 
 @objc class Location: NSObject{
-    var id:Int
+    var locationID:Int
     var name:String
     var address:String
     var phoneNumber:String
@@ -37,7 +55,7 @@ struct JSONLocation: Decodable {
         self.website = ""
         self.rating = 0.0
         
-        id = -1
+        locationID = -1
         //load id & ratings from backend by passing in name
         ratings = [Rating]()
     }
@@ -49,7 +67,7 @@ struct JSONLocation: Decodable {
         self.phoneNumber = ""
         self.website = ""
         self.rating = 0.0
-         id = -1
+         locationID = -1
          //load id & ratings from backend by passing in name
          ratings = [Rating]()
     }
