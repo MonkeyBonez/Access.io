@@ -8,18 +8,54 @@
 import UIKit
 
 import Foundation
+struct JSONReview: Decodable {
+    let title: String
+    let body: String
+    let rampRating: Double
+    let doorRating: Double
+    let elevatorRating: Double
+    let otherRating: Double
+    let userName: String
+    let upvotes: Int
+    let downvotes: Int
+    let image: String
+    let locationName: String
+}
+
+struct JSONLocation: Decodable {
+    let id: Int
+    let name: String
+    let website: String
+    let address:String
+    let phoneNumber:String
+    let rampRating: Double
+    let doorRating: Double
+    let elevatorRating: Double
+    let otherRating: Double
+    let reviews: [JSONReview]
+}
+
 @objc class Location: NSObject{
-    var id:Int
+    var locationID:Int
     var name:String
-    @objc dynamic var ratings:[Rating]
+    var address:String
+    var phoneNumber:String
+    var website:String
+    var rating: Double
     var lat:Double
     var long:Double
+    @objc dynamic var ratings:[Rating]
 
     init(name:String, lat:Double, long:Double){
         self.name = name
         self.lat = lat
         self.long = long
-        id = -1
+        self.address = ""
+        self.phoneNumber = ""
+        self.website = ""
+        self.rating = 0.0
+        
+        locationID = -1
         //load id & ratings from backend by passing in name
         ratings = [Rating]()
     }
@@ -27,7 +63,11 @@ import Foundation
            self.name = name
         self.lat = 0
          self.long = 0
-         id = -1
+        self.address = ""
+        self.phoneNumber = ""
+        self.website = ""
+        self.rating = 0.0
+         locationID = -1
          //load id & ratings from backend by passing in name
          ratings = [Rating]()
     }
@@ -44,14 +84,15 @@ import Foundation
         ratings.append(reviewAdd)
     }
     func averageRating() -> Double{
-        var numReviews:Int = ratings.count
-        if(numReviews == 0){
-            return -1
-        }
-        var totalReviewCount:Int = 0
-        for rating in ratings{
-            totalReviewCount += rating.rating
-        }
-        return Double(totalReviewCount)/Double(numReviews)
+//        var numReviews:Int = ratings.count
+//        if(numReviews == 0){
+//            return -1
+//        }
+//        var totalReviewCount:Int = 0
+//        for rating in ratings{
+//            totalReviewCount += rating.rating
+//        }
+//        return Double(totalReviewCount)/Double(numReviews)
+        return rating
     }
 }

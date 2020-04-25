@@ -111,12 +111,16 @@ class AddRatingViewController: UIViewController{
     
     
     @IBAction func postButtonPressed(_ sender: Any) {
+        // useless?
         var alreadyReviewed: Bool = false
         for singleRating in loc!.ratings{
-            if(Bool(currUser!.id == singleRating.userId)){
+            if(Bool(currUser!.username == singleRating.username)){
                 alreadyReviewed = true
+                
             }
         }
+        // useless?
+
         if(alreadyReviewed){
             errorField.text = "Location already reviewed"
         }
@@ -125,8 +129,25 @@ class AddRatingViewController: UIViewController{
             errorField.text = "Fill out all fields"
         }// make another else if checking if user already reviewed
         else{
+            print("LOCATION ID:")
+            print(    loc!.locationID)
             var newRating:Rating = Rating(ratingUser: currUser!, title: titleTextField.text!, loc: loc!, ratingString: bodyTextField.text!, ratingStars: ratingStars)
-            delegate?.addRating(rating: newRating)
+//            delegate?.addRating(rating: newRating)
+            
+            var url : String = "http://localhost:8080/CSCI201_Group_6/ReviewServ?locationID=" + String(format: "%d", loc?.locationID as! CVarArg)
+            url += "&userID=" + String(format: "%d", userId!)
+            
+            url += "&requestType=submitReview&title=" + titleTextField.text!
+            url += "&body=" + bodyTextField.text!
+            url += "&otherRating=" + String(format: "%d", ratingStars)
+            url += "&elevatorRating=0"
+            url += "&rampRating=0"
+            url += "&doorRating=0"
+
+            print("URL FROM ADD RATING:" + url)
+            let response = query(address: url)
+            
+            print("got this response ADD RATING: " + response)
             
             
 //            loc!.addReview(reviewAdd: newRating)
