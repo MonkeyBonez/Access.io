@@ -8,18 +8,22 @@
 
 import UIKit
 import Foundation
-@objc class Rating: NSObject{
-    @objc dynamic var username:String
-    @objc dynamic var userId:Int
-    @objc dynamic var locationName:String
-    @objc dynamic var ratingId:Int
-    @objc dynamic var body:String//users comment
-    @objc dynamic var rating:Int
-    @objc dynamic var title:String
-    @objc dynamic var upvotes:Int
-    @objc dynamic var downvotes:Int
+class Rating: NSObject{
+    var username:String
+    var userId:Int
+    var locationName:String
+    var ratingId:Int
+    var body:String//users comment
+    var rating:Int
+    var rampRating: Int
+    var doorRating: Int
+    var elevatorRating: Int
+    var title:String
+    var upvotes:Int
+    var downvotes:Int
+   
     
-    init(ratingUser: User, title:String, loc: Location, ratingString:String, ratingStars:Int){
+    init(ratingUser: User, title:String, loc: Location, ratingString:String, ratingStars:Int, rampRating: Int, doorRating: Int, elevatorRating:Int){
         self.userId = ratingUser.id
         self.body = ratingString
         self.rating = ratingStars
@@ -28,6 +32,9 @@ import Foundation
         self.username = ratingUser.username
         upvotes = 0
         downvotes = 0
+        self.rampRating = rampRating
+        self.doorRating = doorRating
+        self.elevatorRating = elevatorRating
         //load everything below this line from backend
         
         ratingId = -1

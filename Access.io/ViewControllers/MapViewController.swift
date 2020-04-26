@@ -127,6 +127,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
   
             for i in jsonLocation.reviews {
                 var reviewUser = User(username: i.userName, password: "", email: "")
+                //NEED TO ADD PARAMTERS FOR SUB RATINGS
                 var r = Rating(ratingUser: reviewUser, title: i.title, loc: loc, ratingString: i.body, ratingStars: Int(i.otherRating))
                 
                 loc.addReview(reviewAdd: r)
