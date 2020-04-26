@@ -41,7 +41,10 @@ struct JSONLocation: Decodable {
     var address:String
     var phoneNumber:String
     var website:String
-    var rating: Double
+    var otherRating: Double
+    var rampRating: Double
+    var elevatorRating: Double
+    var doorRating: Double
     var lat:Double
     var long:Double
     @objc dynamic var ratings:[Rating]
@@ -53,7 +56,10 @@ struct JSONLocation: Decodable {
         self.address = ""
         self.phoneNumber = ""
         self.website = ""
-        self.rating = 0.0
+        self.otherRating = 0.0
+        self.rampRating = 0.0
+        self.doorRating = 0.0
+        self.elevatorRating = 0.0
         
         locationID = -1
         //load id & ratings from backend by passing in name
@@ -66,7 +72,10 @@ struct JSONLocation: Decodable {
         self.address = ""
         self.phoneNumber = ""
         self.website = ""
-        self.rating = 0.0
+        self.otherRating = 0.0
+        self.rampRating = 0.0
+        self.doorRating = 0.0
+        self.elevatorRating = 0.0
          locationID = -1
          //load id & ratings from backend by passing in name
          ratings = [Rating]()
@@ -83,16 +92,20 @@ struct JSONLocation: Decodable {
     func addReview(reviewAdd: Rating){
         ratings.append(reviewAdd)
     }
-    func averageRating() -> Double{
-//        var numReviews:Int = ratings.count
-//        if(numReviews == 0){
-//            return -1
-//        }
-//        var totalReviewCount:Int = 0
-//        for rating in ratings{
-//            totalReviewCount += rating.rating
-//        }
-//        return Double(totalReviewCount)/Double(numReviews)
-        return rating
+    
+    func clearReviews() {
+        ratings = [Rating]()
     }
+//    func averageRating() -> Double{
+////        var numReviews:Int = ratings.count
+////        if(numReviews == 0){
+////            return -1
+////        }
+////        var totalReviewCount:Int = 0
+////        for rating in ratings{
+////            totalReviewCount += rating.rating
+////        }
+////        return Double(totalReviewCount)/Double(numReviews)
+//        return rating
+//    }
 }

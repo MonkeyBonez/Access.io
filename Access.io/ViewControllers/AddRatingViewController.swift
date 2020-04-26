@@ -245,9 +245,9 @@ class AddRatingViewController: UIViewController{
             url += "&requestType=submitReview&title=" + titleTextField.text!
             url += "&body=" + bodyTextField.text!
             url += "&otherRating=" + String(format: "%d", overallRatingStars)
-            url += "&elevatorRating=0"
-            url += "&rampRating=0"
-            url += "&doorRating=0"
+            url += "&elevatorRating=" + String(format: "%d", elevatorRatingStars)
+            url += "&rampRating=" + String(format: "%d", rampRatingStars)
+            url += "&doorRating=" + String(format: "%d", doorRatingStars)
 
             print("URL FROM ADD RATING:" + url)
             let response = query(address: url)
@@ -258,6 +258,7 @@ class AddRatingViewController: UIViewController{
 //            loc!.addReview(reviewAdd: newRating)
             //previousVC?.updateUI()
             navigationController?.popViewController(animated: true)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "dataChanged"), object: self)
             dismiss(animated: true, completion: nil)
         }
     }

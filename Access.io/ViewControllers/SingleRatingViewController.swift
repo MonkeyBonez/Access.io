@@ -59,7 +59,7 @@ class SingleRatingViewController: UIViewController{
         ratingUsername.text = currRating?.username
         ratingLocation.text = currRating?.locationName
         ratingTtile.text = currRating?.title
-        let overallStars: Int = currRating?.rating ?? 0
+        let overallStars: Int = currRating?.otherRating ?? 0
         let rampRatingStar: Int = currRating?.rampRating ?? 0
         let doorRatingStar: Int = currRating?.doorRating ?? 0
         let elevatorRatingStar: Int = currRating?.elevatorRating ?? 0

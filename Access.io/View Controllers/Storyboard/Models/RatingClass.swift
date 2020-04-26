@@ -14,7 +14,7 @@ class Rating: NSObject{
     var locationName:String
     var ratingId:Int
     var body:String//users comment
-    var rating:Int
+    var otherRating:Int
     var rampRating: Int
     var doorRating: Int
     var elevatorRating: Int
@@ -26,7 +26,7 @@ class Rating: NSObject{
     init(ratingUser: User, title:String, loc: Location, ratingString:String, ratingStars:Int, rampRating: Int, doorRating: Int, elevatorRating:Int){
         self.userId = ratingUser.id
         self.body = ratingString
-        self.rating = ratingStars
+        self.otherRating = ratingStars
         self.locationName = loc.name
         self.title = title
         self.username = ratingUser.username
@@ -40,11 +40,4 @@ class Rating: NSObject{
         ratingId = -1
         
     }
-    
-   
-    func sendRating(){
-        //sends rating and location to backend when user creates rating
-    }
-    
-    
 }

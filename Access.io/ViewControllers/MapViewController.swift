@@ -51,9 +51,16 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         // MARK: - eActivity Indicator
         
         fileprivate var activityIndicator: UIActivityIndicatorView!
+    
+        // MARK: - Data Changed
+    @objc func dataChanged() {
+        print("received data changed")
+        updateUI()
+    }
+        
         
         // MARK: - UIViewController's methods
-        
+        static let dataChangedName = Notification.Name("dataChanged")
         override func viewDidLoad() {
             super.viewDidLoad()
             
@@ -74,6 +81,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             reviewTable.delegate = self
             //reviewTable.reloadData()
             zoomToCurrentLocation()
+            NotificationCenter.default.addObserver(self, selector: #selector(MapViewController.dataChanged), name: MapViewController.dataChangedName, object: nil)
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -122,23 +130,26 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             let jsonLocation: JSONLocation = try! JSONDecoder().decode(JSONLocation.self, from: data!)
             print(jsonLocation.website)
             loc.locationID = jsonLocation.id
-            self.loc.rating = jsonLocation.otherRating
+            self.loc.otherRating = jsonLocation.otherRating
+            self.loc.rampRating = jsonLocation.rampRating
+            self.loc.doorRating = jsonLocation.doorRating
+            self.loc.elevatorRating = jsonLocation.elevatorRating
+            self.loc.clearReviews();
+
             // init(ratingUser: User, title:String, loc: Location, ratingString:String, ratingStars:Int){
-  
             for i in jsonLocation.reviews {
                 var reviewUser = User(username: i.userName, password: "", email: "")
                 //NEED TO ADD PARAMTERS FOR SUB RATINGS
-                var r = Rating(ratingUser: reviewUser, title: i.title, loc: loc, ratingString: i.body, ratingStars: Int(i.otherRating))
-                
+                var r = Rating(ratingUser: reviewUser, title: i.title, loc: loc, ratingString: i.body, ratingStars: Int(i.otherRating), rampRating: Int(i.rampRating), doorRating: Int(i.doorRating), elevatorRating: Int(i.elevatorRating))
                 loc.addReview(reviewAdd: r)
             }
         }
         self.reviewTable.reloadData()
 
-        let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
+        let averageRating:String = String(format: "%.2f", self.loc.otherRating)
         
-           if(self.loc.averageRating() > 0.0){
-            self.ratingLabel.text = String(format: "Rating: %.2f/5", self.loc.rating)
+           if(self.loc.otherRating > 0.0){
+            self.ratingLabel.text = String(format: "Rating: %.2f/5", self.loc.otherRating)
            }
            else{
                self.ratingLabel.text =  "No ratings"
@@ -343,10 +354,11 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 vc.delegate = self
                 //vc.previousVC = self
                 self.present(vc, animated: true, completion: nil)
+                print("line after present")
                 //reviewTable.reloadData()
-                let averageRating:String = String(format: "%.2f", self.loc.averageRating() )
+                let averageRating:String = String(format: "%.2f", self.loc.otherRating)
                 
-                if(self.loc.averageRating() > 0.0){
+                if(self.loc.otherRating > 0.0){
                     self.ratingLabel.text =  "Rating (x/5): "
                     self.ratingLabel.text! += " " + averageRating;
                 }
@@ -379,7 +391,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
 
         
         let r = loc.ratings[indexPath.row]
-        let text = String(r.rating) + "/5" + " " + r.title // Maybe this should be title instead?
+        let text = String(r.otherRating) + "/5" + " " + r.title // Maybe this should be title instead?
         
         cell.textLabel?.text = text //3.
         
