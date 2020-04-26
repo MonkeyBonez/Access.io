@@ -134,7 +134,23 @@ class LoginViewController: UIViewController {
         print("USERID from login: " + response)
         var userId: Int = Int()
         //Get the userID from the back end
-        userId = Int(response)!
+        if(response == "<!doctype html><html lang=\"en\"><head><title>HTTP Status 404 – Not Found</title><style type=\"text/css\">body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}</style></head><body><h1>HTTP Status 404 – Not Found</h1><hr class=\"line\" /><p><b>Type</b> Status Report</p><p><b>Message</b> &#47;CSCI201_Group_6&#47;LoginServ</p><p><b>Description</b> The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.</p><hr class=\"line\" /><h3>Apache Tomcat/9.0.30</h3></body></html>"){
+            let alertController = UIAlertController(title: "Cannot connect to server", message: "Continue as Guest?", preferredStyle: UIAlertController.Style.alert) //Replace
+            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                (result : UIAlertAction) -> Void in
+                print("OK")
+                
+        }
+            
+             alertController.addAction(UIAlertAction(title: "Okay",
+                                                     style: UIAlertAction.Style.default,
+             handler: alertHandler(alert:)))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else{
+            
+        
+            userId = Int(response)!
         
         //If the userID is valid then create a new user
         if(userId >= 0){
@@ -150,6 +166,16 @@ class LoginViewController: UIViewController {
             IncorrectLoginText.isHidden = false
         }
     }
-    
+    }
+    func alertHandler(alert: UIAlertAction!) {
+        // Do something...
+        var newUser:User = User(username: "",password: "")
+        newUser.setId(id: 0)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MapScreen") as! MapViewController
+        //vc.connectionToServer = connectionToServer
+        //vc.userId = userId
+        vc.currUser = newUser
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
 }

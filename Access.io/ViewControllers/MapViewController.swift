@@ -157,7 +157,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         let averageRating:String = String(format: "%.2f", self.loc.otherRating)
         
            if(self.loc.otherRating > 0.0){
-            self.ratingLabel.text = String(format: "Rating: %.2f/5", self.loc.otherRating)
+            //self.ratingLabel.text = String(format: "Rating: %.2f/5", self.loc.otherRating)
+            self.ratingLabel.text = "Rating:"
            }
            else{
                self.ratingLabel.text =  "No ratings"
