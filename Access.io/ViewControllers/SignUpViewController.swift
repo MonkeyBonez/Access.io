@@ -75,6 +75,12 @@ class SignUpViewController: UIViewController {
         }
         //send to server & check if username and email already used
         else{
+
+                    // MARK: - SUBMIT USING THIS
+            //        var url : String"http://ec2-174-129-227-59.compute-1.amazonaws.com/CSCI201_Group_6/LoginServ?requestType=register&email="
+            //
+            //        url += emailTextBox.text! + "&name=" + usernameTextBox.text! + "&userName=" + usernameTextBox.text! + "&password=" + passwordTextBox.text!
+                    // MARK: - SUBMIT USING THIS
             let url = "http://localhost:8080/CSCI201_Group_6/LoginServ?requestType=register&email=" + emailTextBox.text! + "&name=" + usernameTextBox.text! + "&userName=" + usernameTextBox.text! + "&password=" + passwordTextBox.text!
             let response = query(address: url)
             print("got this response: " + response)

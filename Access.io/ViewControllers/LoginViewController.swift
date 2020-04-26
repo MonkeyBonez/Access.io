@@ -116,10 +116,17 @@ class LoginViewController: UIViewController {
         disableLoginButton()
 //        var sentUser = User(username: username,password: password)
        
+
+                // MARK: - SUBMIT USING THIS
+        //        var url : String"http://ec2-174-129-227-59.compute-1.amazonaws.com/CSCI201_Group_6/LoginServ?requestType=login&username="
+        //
+        //        url += + usernameTextField.text! + "&password=" + passwordTextField.text!
+                // MARK: - SUBMIT USING THIS
+        
+        
         // After checking for errors in the text fields
         // Use sample URL
         // localhost:8080/CSCI201_Group_6/LoginServ?requestType=login&userName=xxx&password=xxx
-
         let url = "http://localhost:8080/CSCI201_Group_6/LoginServ?requestType=login&userName=" + usernameTextField.text! + "&password=" + passwordTextField.text!
         print(url)
         // Query the login

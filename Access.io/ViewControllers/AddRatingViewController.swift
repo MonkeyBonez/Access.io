@@ -239,6 +239,22 @@ class AddRatingViewController: UIViewController{
             var newRating:Rating = Rating(ratingUser: currUser!, title: titleTextField.text!, loc: loc!, ratingString: bodyTextField.text!, ratingStars: overallRatingStars, rampRating: rampRatingStars, doorRating: doorRatingStars, elevatorRating: elevatorRatingStars)
 //            delegate?.addRating(rating: newRating)
             
+            
+
+                    // MARK: - SUBMIT USING THIS
+            //        var url : String"http://ec2-174-129-227-59.compute-1.amazonaws.com/CSCI201_Group_6/LoginServ?ReviewServ?locationID="
+            //+ String(format: "%d", loc?.locationID as! CVarArg)
+        //            url += "&userID=" + String(format: "%d", currUser!.id)
+        //            
+        //            url += "&requestType=submitReview&title=" + titleTextField.text!
+        //            url += "&body=" + bodyTextField.text!
+        //            url += "&otherRating=" + String(format: "%d", overallRatingStars)
+        //            url += "&elevatorRating=" + String(format: "%d", elevatorRatingStars)
+        //            url += "&rampRating=" + String(format: "%d", rampRatingStars)
+        //            url += "&doorRating=" + String(format: "%d", doorRatingStars)
+            //        url += + usernameTextField.text! + "&password=" + passwordTextField.text!
+                    // MARK: - SUBMIT USING THIS
+            
             var url : String = "http://localhost:8080/CSCI201_Group_6/ReviewServ?locationID=" + String(format: "%d", loc?.locationID as! CVarArg)
             url += "&userID=" + String(format: "%d", currUser!.id)
             

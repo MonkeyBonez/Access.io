@@ -114,6 +114,14 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     func updateUI(){
         locationLabel.text = "Location name: "
         locationLabel.text! += " " + loc.name;
+        
+        // MARK: - SUBMIT USING THIS
+//        var url : String"http://ec2-174-129-227-59.compute-1.amazonaws.com/CSCI201_Group_6/LocServ?locationName="
+//
+//        url += loc.name + "&latitude=" + String(format:"%f", loc.lat)
+//        url += "&longitude=" + String(format:"%f", loc.long)
+        // MARK: - SUBMIT USING THIS
+
         var url : String = "http://localhost:8080/CSCI201_Group_6/LocServ?locationName="
         
         url += loc.name + "&latitude=" + String(format:"%f", loc.lat)
