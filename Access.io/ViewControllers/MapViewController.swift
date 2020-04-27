@@ -104,6 +104,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         static let dataChangedName = Notification.Name("dataChanged")
         override func viewDidLoad() {
             super.viewDidLoad()
+            noRatings()
             addReview.isEnabled = false
             overallStarArray = [overallStar1, overallStar2, overallStar3, overallStar4, overallStar5]
             entranceStarArray = [entranceStar1, entranceStar2, entranceStar3, entranceStar4, entranceStar5]
