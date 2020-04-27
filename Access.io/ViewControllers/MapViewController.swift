@@ -64,6 +64,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         static let dataChangedName = Notification.Name("dataChanged")
         override func viewDidLoad() {
             super.viewDidLoad()
+            addReview.isEnabled = false
             if(currUser.id >= 0){
                 logoutButton.setTitle("Log out", for: .normal)
             }
@@ -267,6 +268,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
             localSearch.start { [weak self] (localSearchResponse, error) -> Void in
                 
                 if localSearchResponse == nil {
+                    self!.addReview.isEnabled = false
                    /* let alert = UIAlertView(title: nil, message: "Place not found", delegate: self, cancelButtonTitle: "Try again")
                     alert.show()*/
                     let alertController = UIAlertController(title: "Location Not Found", message: "Please search for another location", preferredStyle: UIAlertController.Style.alert) //Replace UIAlertControllerStyle.Alert by UIAlertControllerStyle.alert
@@ -292,7 +294,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                     let pointAnnotation = MKPointAnnotation()
                     
                     self?.loc = Location(name: searchBar.text!, lat: localSearchResponse!.boundingRegion.center.latitude, long: localSearchResponse!.boundingRegion.center.longitude)
-                    
+                    self!.addReview.isEnabled = true
                     
 
                     //TESTING AVERAGE
