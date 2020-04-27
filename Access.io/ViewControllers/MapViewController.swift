@@ -13,7 +13,37 @@ import CoreLocation
 
 class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ReviewDelegate {
     
-
+    var ratingLabelArray: [UILabel] = []
+    
+    var overallStarArray: [UIImageView] = []
+    var entranceStarArray: [UIImageView] = []
+    var rampStarArray: [UIImageView] = []
+    var elevatorStarArray: [UIImageView] = []
+    var allStarArray: [UIImageView] = []
+    
+    @IBOutlet weak var overallStar1: UIImageView!
+    @IBOutlet weak var overallStar2: UIImageView!
+    @IBOutlet weak var overallStar3: UIImageView!
+    @IBOutlet weak var overallStar4: UIImageView!
+    @IBOutlet weak var overallStar5: UIImageView!
+    
+    @IBOutlet weak var entranceStar1: UIImageView!
+    @IBOutlet weak var entranceStar2: UIImageView!
+    @IBOutlet weak var entranceStar3: UIImageView!
+    @IBOutlet weak var entranceStar4: UIImageView!
+    @IBOutlet weak var entranceStar5: UIImageView!
+    
+    @IBOutlet weak var rampStar1: UIImageView!
+    @IBOutlet weak var rampStar2: UIImageView!
+    @IBOutlet weak var rampStar3: UIImageView!
+    @IBOutlet weak var rampStar4: UIImageView!
+    @IBOutlet weak var rampStar5: UIImageView!
+    
+    @IBOutlet weak var elevatorStar1: UIImageView!
+    @IBOutlet weak var elevatorStar2: UIImageView!
+    @IBOutlet weak var elevatorStar3: UIImageView!
+    @IBOutlet weak var elevatorStar4: UIImageView!
+    @IBOutlet weak var elevatorStar5: UIImageView!
     
     @IBOutlet weak var map: MKMapView!
     
@@ -30,7 +60,17 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     }
 
     @IBOutlet weak var ratingLabel: UILabel!
+  
+    @IBOutlet weak var averageRatingLabel: UILabel!
+    
+    @IBOutlet weak var entranceRatingLabel: UILabel!
+    
+    @IBOutlet weak var rampRatingLabel: UILabel!
+    
+    @IBOutlet weak var elevatorRatingLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
+    
+    
     //or can just pass in id
     /*override func viewDidLoad() {
     super.viewDidLoad()
@@ -65,6 +105,15 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         override func viewDidLoad() {
             super.viewDidLoad()
             addReview.isEnabled = false
+            overallStarArray = [overallStar1, overallStar2, overallStar3, overallStar4, overallStar5]
+            entranceStarArray = [entranceStar1, entranceStar2, entranceStar3, entranceStar4, entranceStar5]
+            rampStarArray = [rampStar1, rampStar2, rampStar3, rampStar4, rampStar5]
+            elevatorStarArray = [elevatorStar1, elevatorStar2, elevatorStar3, elevatorStar4, elevatorStar5]
+
+            ratingLabelArray = [ratingLabel, entranceRatingLabel, rampRatingLabel, elevatorRatingLabel]
+            allStarArray = overallStarArray + entranceStarArray + rampStarArray + elevatorStarArray
+            
+            
             if(currUser.id >= 0){
                 logoutButton.setTitle("Log out", for: .normal)
             }
@@ -165,10 +214,10 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         
            if(self.loc.otherRating > 0.0){
             //self.ratingLabel.text = String(format: "Rating: %.2f/5", self.loc.otherRating)
-            self.ratingLabel.text = "Rating:"
+            showRatings()
            }
            else{
-               self.ratingLabel.text =  "No ratings"
+              noRatings()
            }
     }
         
@@ -376,12 +425,15 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 let averageRating:String = String(format: "%.2f", self.loc.otherRating)
                 
                 if(self.loc.otherRating > 0.0){
-                    self.ratingLabel.text =  "Rating (x/5): "
-                    self.ratingLabel.text! += " " + averageRating;
+                   /* self.ratingLabel.text =  "Rating (x/5): "
+                    self.ratingLabel.text! += " " + averageRating;*/
+                    showRatings()
                 }
                 else{
-                    self.ratingLabel.text =  "No ratings"
+                    //self.ratingLabel.text =  "No ratings"
+                    noRatings()
                 }
+            
             }
             else{
                 print("invalid user")
@@ -433,7 +485,55 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
          let vc = storyboard?.instantiateViewController(withIdentifier: "mainMenuView") as! MainMenuViewController
         navigationController?.pushViewController(vc, animated: true)
     }
+    func noRatings(){
+        averageRatingLabel.text = "No Ratings"
+        for singleRating in ratingLabelArray{
+            singleRating.isHidden = true
+        }
+        for singleStar in allStarArray{
+            singleStar.isHidden = true
+        }
+        
+    }
+    func showRatings(){
+        averageRatingLabel.text = "Average Ratings:"
+        for singleRating in ratingLabelArray{
+            singleRating.isHidden = false
+        }
+        for singleStar in allStarArray{
+            singleStar.isHidden = false
+            singleStar.image = UIImage(systemName: "star")
+        }
+        
+       /*var overallRating = loc.otherRating
+        var entranceRating = loc.doorRating
+        var rampRating = loc.rampRating
+        var elevatorRating = loc.elevatorRating*/
+        fillStars(rating: loc.otherRating, starArray: overallStarArray)
+        fillStars(rating: loc.doorRating, starArray: entranceStarArray)
+        fillStars(rating: loc.rampRating, starArray: rampStarArray)
+        fillStars(rating: loc.elevatorRating, starArray: elevatorStarArray)
+        
+        
+        
+        
+    }
     
+    func fillStars (rating:Double, starArray: [UIImageView]){
+        var i = rating
+        var j = 0
+        while(i >= 1){
+            starArray[j].image = UIImage(systemName: "star.fill")
+            i-=1
+            j+=1
+        }
+        if(i >= 0.75){
+            starArray[j].image = UIImage(systemName: "star.fill")
+        }
+        else if(i >= 0.35){
+            starArray[j].image = UIImage(systemName: "star.lefthalf.fill")
+        }
+    }
 
 
 }
