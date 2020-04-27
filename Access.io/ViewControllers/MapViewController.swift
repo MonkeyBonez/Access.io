@@ -12,6 +12,7 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ReviewDelegate {
+    @IBOutlet weak var logoutButton: UIButton!
     
 
     
@@ -56,7 +57,13 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            
+            addReview.isEnabled = false
+            if(currUser.id >= 0){
+                logoutButton.setTitle("Log out", for: .normal)
+            }
+            else{
+                logoutButton.setTitle("Main menu", for: .normal)
+            }
             let currentLocationButton = UIBarButtonItem(title: "Current Location", style: UIBarButtonItem.Style.plain, target: self, action: #selector(MapViewController.currentLocationButtonAction(_:)))
             self.navigationItem.leftBarButtonItem = currentLocationButton
             
@@ -200,6 +207,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
                 let pointAnnotation = MKPointAnnotation()
                 
                 self?.loc = Location(name: searchBar.text!, lat: localSearchResponse!.boundingRegion.center.latitude, long: localSearchResponse!.boundingRegion.center.longitude)
+                self!.addReview.isEnabled = true
                 //TESTING AVERAGE
                 /*self?.loc.addRating(stars: 3, title: "Great", userID: 1, body: "Pretty cool")
                 self?.loc.addRating(stars: 5, title: "Amazing", userID: 5, body: "it was really cool")*/
@@ -316,6 +324,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         print("viewDidAppear")
         DispatchQueue.main.async { self.reviewTable.reloadData() }
         
+        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedRating = loc.ratings[indexPath.row]
@@ -326,7 +335,11 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     }
    
      
-
+    @IBAction func logoutButtonClicked(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "mainMenuView") as! MainMenuViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
 
 }
