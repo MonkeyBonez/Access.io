@@ -17,6 +17,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var map: MKMapView!
     
+    @IBOutlet weak var logoutButton: UIButton!
     //var userId:Int = Int()
     var currUser:User = User(username: "", password: "")
     var loc = Location(name: "", lat: 0, long: 0)
@@ -63,7 +64,12 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         static let dataChangedName = Notification.Name("dataChanged")
         override func viewDidLoad() {
             super.viewDidLoad()
-            
+            if(currUser.id >= 0){
+                logoutButton.setTitle("Log out", for: .normal)
+            }
+            else{
+                logoutButton.setTitle("Main menu", for: .normal)
+            }
             let currentLocationButton = UIBarButtonItem(title: "Current Location", style: UIBarButtonItem.Style.plain, target: self, action: #selector(MapViewController.currentLocationButtonAction(_:)))
             self.navigationItem.leftBarButtonItem = currentLocationButton
             
@@ -421,7 +427,11 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     }
    
      
-
+    @IBAction func logoutButtonClicked(_ sender: Any) {
+         let vc = storyboard?.instantiateViewController(withIdentifier: "mainMenuView") as! MainMenuViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
 
 }

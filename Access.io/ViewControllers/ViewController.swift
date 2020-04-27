@@ -18,6 +18,7 @@ class MainMenuViewController: UIViewController{
     @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
+        self.navigationItem.hidesBackButton = true
         super.viewDidLoad()
        // myView.delegate = self
         // Do any additional setup after loading the view.
