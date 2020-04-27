@@ -79,7 +79,7 @@ class SignUpViewController: UIViewController {
                     // MARK: - SUBMIT USING THIS
             //        var url : String"http://ec2-174-129-227-59.compute-1.amazonaws.com/CSCI201_Group_6/LoginServ?requestType=register&email="
             //
-            //        url += emailTextBox.text! + "&name=" + usernameTextBox.text! + "&userName=" + usernameTextBox.text! + "&password=" + passwordTextBox.text!
+            //        url += emailTextBox.text! + "&name=" + usernameTextBox.text! + "&userName=" + usernameTextBox.text! + "&password=" + passwordTextBox.text!d
                     // MARK: - SUBMIT USING THIS
             let url = "http://localhost:8080/CSCI201_Group_6/LoginServ?requestType=register&email=" + emailTextBox.text! + "&name=" + usernameTextBox.text! + "&userName=" + usernameTextBox.text! + "&password=" + passwordTextBox.text!
             let response = query(address: url)
