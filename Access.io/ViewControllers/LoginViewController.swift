@@ -149,8 +149,11 @@ class LoginViewController: UIViewController {
         }
         else{
             
-        
-            userId = Int(response)!
+            if (response == "This user does not exist.\n") {
+                userId = Int(response)!
+            } else { userId = -2 }
+            print("USER ID HERE")
+            print(userId)
         
         //If the userID is valid then create a new user
         if(userId >= 0){
