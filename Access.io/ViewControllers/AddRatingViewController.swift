@@ -271,7 +271,7 @@ class AddRatingViewController: UIViewController{
             safeUrlComp?.queryItems = safeUrlQueryItems
             print(safeUrlComp?.queryItems)//CHECK HERE
             let response = query(address: url)
-            
+            print("hi")
             print("got this response ADD RATING: " + response)
             
             
