@@ -266,6 +266,10 @@ class AddRatingViewController: UIViewController{
             url += "&doorRating=" + String(format: "%d", doorRatingStars)
 
             print("URL FROM ADD RATING:" + url)
+            var safeUrlQueryItems = [URLQueryItem(name: "locationID", value: String(loc!.locationID)),URLQueryItem(name: "userID", value: String(currUser!.id)), URLQueryItem(name: "requestType" , value: "submitReview"), URLQueryItem(name: "title" , value: "titleTextField.text!"), URLQueryItem(name: "body", value: bodyTextField.text), URLQueryItem(name: "otherRating", value: String(elevatorRatingStars)), URLQueryItem(name: "rampRating", value: String(rampRatingStars)), URLQueryItem(name: "doorRating", value: String(doorRatingStars))]
+            var safeUrlComp = URLComponents(string: "http://localhost:8080/CSCI201_Group_6/ReviewServ?")
+            safeUrlComp?.queryItems = safeUrlQueryItems
+            print(safeUrlComp?.queryItems)//CHECK HERE
             let response = query(address: url)
             
             print("got this response ADD RATING: " + response)
