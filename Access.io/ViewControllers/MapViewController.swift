@@ -89,7 +89,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         fileprivate var locationManager: CLLocationManager!
         fileprivate var isCurrentLocation: Bool = false
         
-        // MARK: - eActivity Indicator
+    @IBOutlet weak var reviewsLabel: UILabel!
+    // MARK: - eActivity Indicator
         
         fileprivate var activityIndicator: UIActivityIndicatorView!
     
@@ -104,17 +105,20 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         static let dataChangedName = Notification.Name("dataChanged")
         override func viewDidLoad() {
             super.viewDidLoad()
-            noRatings()
+            reviewTable.backgroundColor = UIColor(red: 153/255.0, green: 27/255.0, blue: 30/255.0, alpha: 1)
+            reviewTable.separatorColor = UIColor(named: "Teal")
+           
+            
             addReview.isEnabled = false
             overallStarArray = [overallStar1, overallStar2, overallStar3, overallStar4, overallStar5]
             entranceStarArray = [entranceStar1, entranceStar2, entranceStar3, entranceStar4, entranceStar5]
             rampStarArray = [rampStar1, rampStar2, rampStar3, rampStar4, rampStar5]
             elevatorStarArray = [elevatorStar1, elevatorStar2, elevatorStar3, elevatorStar4, elevatorStar5]
 
-            ratingLabelArray = [ratingLabel, entranceRatingLabel, rampRatingLabel, elevatorRatingLabel]
+            ratingLabelArray = [ratingLabel, entranceRatingLabel, rampRatingLabel, elevatorRatingLabel, reviewsLabel, locationLabel]
             allStarArray = overallStarArray + entranceStarArray + rampStarArray + elevatorStarArray
             
-            
+            noRatings()
             if(currUser.id >= 0){
                 logoutButton.setTitle("Log out", for: .normal)
             }
@@ -487,7 +491,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         navigationController?.pushViewController(vc, animated: true)
     }
     func noRatings(){
-        averageRatingLabel.text = "No Ratings"
+        averageRatingLabel.text = "Search for a location to discover and create accessibility reviews"
+        
         for singleRating in ratingLabelArray{
             singleRating.isHidden = true
         }

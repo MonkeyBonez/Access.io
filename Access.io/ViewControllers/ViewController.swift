@@ -18,6 +18,11 @@ class MainMenuViewController: UIViewController{
     @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
+        //let redColor = UIColor(displayP3Red: 153, green: 27, blue: 30, alpha: 0.5)
+       
+        navigationController?.navigationBar.barTintColor =  UIColor(red: 153/255.0, green: 27/255.0, blue: 30/255.0, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(red: 255/255.0, green: 204/255.0, blue: 0.0, alpha: 1.0)]
+        navigationController?.navigationBar.tintColor = UIColor(red: 255/255.0, green: 204/255.0, blue: 0.0, alpha: 1.0)
         self.navigationItem.hidesBackButton = true
         super.viewDidLoad()
        // myView.delegate = self
