@@ -491,8 +491,14 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         navigationController?.pushViewController(vc, animated: true)
     }
     func noRatings(){
+        if(loc.name.isEmpty){
         averageRatingLabel.text = "Search for a location to discover and create accessibility reviews"
-        
+            addReview.isHidden = true
+        }
+        else{
+            averageRatingLabel.text = "No Reviews"
+            addReview.isHidden = false
+        }
         for singleRating in ratingLabelArray{
             singleRating.isHidden = true
         }
@@ -502,6 +508,7 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
         
     }
     func showRatings(){
+        addReview.isHidden = false
         averageRatingLabel.text = "Average Ratings:"
         for singleRating in ratingLabelArray{
             singleRating.isHidden = false
