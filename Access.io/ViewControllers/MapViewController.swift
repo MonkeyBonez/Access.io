@@ -462,6 +462,8 @@ class MapViewController: UIViewController ,MKMapViewDelegate, CLLocationManagerD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
+        cell.backgroundColor = UIColor(red: 153/255.0, green: 27/255.0, blue: 30/255.0, alpha: 1)
+        cell.textLabel?.textColor = UIColor(red: 255/255.0, green: 204/255.0, blue: 0.0, alpha: 1.0)
 
         
         let r = loc.ratings[indexPath.row]

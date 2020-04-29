@@ -149,12 +149,15 @@ class LoginViewController: UIViewController {
         }
         else{
             
-            if (response == "This user does not exist.\n") {
-                userId = Int(response)!
-            } else { userId = -2 }
-            print("USER ID HERE")
-            print(userId)
-        
+        if (response == "This user does not exist.\n") {
+             userId = -2
+        } else {
+            userId = Int(response)!
+            }
+//        else { userId = -2 }
+//         print("USER ID HERE")
+//         print(userId)
+ 
         //If the userID is valid then create a new user
         if(userId >= 0){
             var newUser:User = User(username: username, password: password)
@@ -168,6 +171,8 @@ class LoginViewController: UIViewController {
         else{
             IncorrectLoginText.isHidden = false
         }
+            
+
     }
     }
     func alertHandler(alert: UIAlertAction!) {

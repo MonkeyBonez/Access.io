@@ -87,12 +87,12 @@ class SignUpViewController: UIViewController {
             //backend checks
             var userId: Int = 0
             //random checks - delete later -----
-            if(username == "snehalmu"){
-                userId = -2
-            }
-            else if(email == "snehalmu@usc.edu" ){
-                userId = -1
-            }
+//            if(username == "snehalmu"){
+//                userId = -2
+//            }
+//            else if(email == "snehalmu@usc.edu" ){
+//                userId = -1
+//            }
             // -------
             if (response == "This user already exists."){
                 errorLabel.text = "User already exists"
